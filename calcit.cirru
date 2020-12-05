@@ -2088,4 +2088,4 @@
                   |T $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1607086108323) (:text |{})
         :proc $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1594475851792) (:data $ {}) (:id |ECAIs9K-n5)
         :configs $ {}
-  :configs $ {} (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac.calcit/compact.cirru) (:local-storage-key |calcit-storage) (:output |src) (:port 6001) (:extension |.cljs) (:init-fn |memof.main/main!) (:compact-output? true) (:storage-key |calcit.cirru) (:version |0.0.1)
+  :configs $ {} (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru) (:local-storage-key |calcit-storage) (:output |src) (:port 6001) (:extension |.cljs) (:init-fn |memof.main/main!) (:compact-output? true) (:storage-key |calcit.cirru) (:version |0.0.1)

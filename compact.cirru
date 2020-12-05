@@ -1,6 +1,6 @@
 
 {} (:package |memof)
-  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac.calcit/compact.cirru) (:version |0.0.1)
+  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru) (:version |0.0.1)
   :files $ {}
     |memof.main $ {}
       :ns $ quote
