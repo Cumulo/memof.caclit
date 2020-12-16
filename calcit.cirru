@@ -2170,15 +2170,24 @@
                   |j $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1608008346000)
                     :data $ {}
                       |T $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1608008346000) (:text |{})
-          |reset-memof-caches! $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1608008805393)
+          |reset-calling-caches! $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1608008805393)
             :data $ {}
               |T $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1608008807418) (:text |defn)
-              |j $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1608009087745) (:text |reset-memof-caches!)
+              |j $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1608090781444) (:text |reset-calling-caches!)
               |r $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1608008805393) (:data $ {})
               |v $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1608008816956)
                 :data $ {}
                   |T $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1608008852708) (:text |memof/reset-entries!)
                   |j $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1608008857814) (:text |*memof-call-states)
+          |tick-calling-loop! $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1608090797792)
+            :data $ {}
+              |T $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1608090797792) (:text |defn)
+              |j $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1608090816583) (:text |tick-calling-loop!)
+              |r $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1608090797792) (:data $ {})
+              |v $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1608090817621)
+                :data $ {}
+                  |T $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1608090827250) (:text |memof/new-loop!)
+                  |j $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1608090831878) (:text |*memof-call-states)
         :proc $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1608008712000) (:data $ {})
         :configs $ {}
-  :configs $ {} (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru) (:local-storage-key |calcit-storage) (:output |src) (:port 6001) (:extension |.cljs) (:init-fn |memof.main/main!) (:compact-output? true) (:storage-key |calcit.cirru) (:version |0.0.2-a1)
+  :configs $ {} (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru) (:local-storage-key |calcit-storage) (:output |src) (:port 6001) (:extension |.cljs) (:init-fn |memof.main/main!) (:compact-output? true) (:storage-key |calcit.cirru) (:version |0.0.3)

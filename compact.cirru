@@ -1,6 +1,6 @@
 
 {} (:package |memof)
-  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru) (:version |0.0.2-a1)
+  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru) (:version |0.0.3)
   :files $ {}
     |memof.main $ {}
       :ns $ quote
@@ -235,7 +235,9 @@
               if (some? v) v $ &let (result $ f & args) (memof/write-record! *memof-call-states f args result) (, result)
         |*memof-call-states $ quote
           defatom *memof-call-states $ memof/new-states ({})
-        |reset-memof-caches! $ quote
-          defn reset-memof-caches! () (memof/reset-entries! *memof-call-states)
+        |reset-calling-caches! $ quote
+          defn reset-calling-caches! () (memof/reset-entries! *memof-call-states)
+        |tick-calling-loop! $ quote
+          defn tick-calling-loop! () (memof/new-loop! *memof-call-states)
       :proc $ quote ()
       :configs $ {}
