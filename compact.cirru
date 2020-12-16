@@ -1,6 +1,6 @@
 
 {} (:package |memof)
-  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru) (:version |0.0.3)
+  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru) (:version |0.0.4)
   :files $ {}
     |memof.main $ {}
       :ns $ quote
@@ -127,12 +127,14 @@
         |show-memory-usages $ quote
           defn show-memory-usages () (; "\"not ready for nim")
         |new-loop! $ quote
-          defn new-loop! (*states) (swap! *states update :loop inc)
+          defn new-loop! (*states)
+            assert "\"expects atom for *states" $ = :atom (type-of *states)
+            swap! *states update :loop inc
             let
-                loop-count $ @*states :loop
-                gc $ @*states :gc
+                loop-count $ :loop (deref *states)
+                gc $ :gc (deref *states)
               when
-                zero? $ rem loop-count (gc :trigger-loop)
+                = 0 $ mod loop-count (:trigger-loop gc)
                 perform-gc! *states
         |write-record! $ quote
           defn write-record! (*states f params value)
@@ -171,7 +173,7 @@
       :configs $ {}
     |memof.test $ {}
       :ns $ quote
-        ns memof.test $ :require ([] calcit-test.core :refer $ [] deftest testing is) ([] memof.core :as memof) ([] memof.alias :refer $ [] memof-call clear-memof-call-caches!)
+        ns memof.test $ :require ([] calcit-test.core :refer $ [] deftest testing is) ([] memof.core :as memof) ([] memof.alias :refer $ [] memof-call reset-calling-caches! tick-calling-loop!)
       :defs $ {}
         |test-write $ quote
           deftest test-write $ let
@@ -189,6 +191,7 @@
             memof/write-record! *states f2 ([] 1 2) 2
             testing "\"overwrites record" $ is
               = 2 $ memof/access-record *states f2 ([] 1 2)
+            memof/new-loop! *states
         |test-gc $ quote
           deftest test-gc $ let
               f1 $ fn () nil
@@ -223,6 +226,8 @@
               = (memof-call + 1 2 3) 6
             is $ with-cpu-time
               = (memof-call + 1 2 3) 6
+            tick-calling-loop!
+            reset-calling-caches!
       :proc $ quote ()
       :configs $ {}
     |memof.alias $ {}
