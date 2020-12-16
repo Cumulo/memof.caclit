@@ -31,7 +31,10 @@ A short hand for using it:
 memof.alias/memof-call f ([] 1 2) 3
 
 ; handle this at first on reload!
-memof.alias/reset-memof-caches!
+memof.alias/reset-calling-caches!
+
+; increment calling loop
+memof.alias/tick-calling-loop!
 ```
 
 States structure:
