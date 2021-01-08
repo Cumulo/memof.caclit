@@ -1,21 +1,21 @@
 
 {} (:package |memof)
-  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru) (:version |0.0.4)
+  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru) (:version |0.0.5)
   :files $ {}
     |memof.main $ {}
       :ns $ quote
-        ns memof.main $ :require ([] memof.core :as memof) ([] memof.test :refer $ [] run-tests) ([] memof.alias :refer $ [] reset-memof-caches!)
+        ns memof.main $ :require ([] memof.core :as memof) ([] memof.test :refer $ [] run-tests) ([] memof.alias :refer $ [] reset-calling-caches!)
       :defs $ {}
         |main! $ quote
           defn main! () (println "\"Started.") (memof/show-summary $ deref *states) (run-tests)
         |reload! $ quote
-          defn reload! () (reset-memof-caches!) (println "\"Reloaded!") (run-tests)
+          defn reload! () (reset-calling-caches!) (println "\"Reloaded!") (run-tests)
         |*states $ quote
           defatom *states $ memof/new-states ({})
       :proc $ quote ()
     |memof.core $ {}
       :ns $ quote
-        ns memof.core $ :require ([] clojure.string :as string) ([] lilac.core :refer $ [] dev-check record+ number+ optional+ boolean+)
+        ns memof.core $ :require ([] lilac.core :refer $ [] dev-check record+ number+ optional+ *in-dev? validate-lilac)
       :defs $ {}
         |show-summary $ quote
           defn show-summary (*states)
@@ -142,12 +142,14 @@
                 the-loop $ :loop (deref *states)
               swap! *states update :entries $ fn (entries)
                 let
-                    entries $ if (contains? entries f) entries
+                    new-entries $ if (contains? entries f) entries
                       assoc entries f $ {} (:records $ {}) (:hit-times 0) (:missed-times 0) (:initial-loop the-loop)
-                  update entries f $ fn (entry)
+                  update new-entries f $ fn (entry)
                     if
                       and
-                        contains? (:recods entry) params
+                        contains?
+                          either (:recods entry) ({})
+                          , params
                         = value $ get-in entry ([] :records params :value)
                       do (println "\"[Memof Record] already exisits" params "\"for" f)
                         -> entry
@@ -173,7 +175,7 @@
       :configs $ {}
     |memof.test $ {}
       :ns $ quote
-        ns memof.test $ :require ([] calcit-test.core :refer $ [] deftest testing is) ([] memof.core :as memof) ([] memof.alias :refer $ [] memof-call reset-calling-caches! tick-calling-loop!)
+        ns memof.test $ :require ([] calcit-test.core :refer $ [] deftest testing is *quit-on-failure?) ([] memof.core :as memof) ([] lilac.core :refer $ [] *in-dev? validate-lilac) ([] memof.alias :refer $ [] memof-call reset-calling-caches! tick-calling-loop!)
       :defs $ {}
         |test-write $ quote
           deftest test-write $ let
@@ -218,7 +220,7 @@
             testing "\"should have two entries" $ is
               = 0 $ count (:entries $ deref *states)
         |run-tests $ quote
-          defn run-tests () (test-gc) (test-reset) (test-write) (test-memof-call)
+          defn run-tests () (reset! *quit-on-failure? true) (test-gc) (test-reset) (test-write) (test-memof-call)
         |*states $ quote (defatom *states $ {})
         |test-memof-call $ quote
           deftest test-memof-call $ testing "\"usage of memof-call"
