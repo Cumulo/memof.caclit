@@ -28,6 +28,6 @@ jobs:
     - name: "test js"
       run: >
         ci-bin/cr_once --emit-js
-        && cp -v js/main.mjs js-out/main.mjs
-        && wget -O js-out/calcit.procs.mjs http://js.calcit-lang.org/calcit.procs.mjs
-        && node js-out/main.mjs
+        && cp -v assets/main.js js-out/main.js
+        && yarn && target=node yarn webpack
+        && node js-out/bundle.js
