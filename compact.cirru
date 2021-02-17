@@ -23,24 +23,24 @@
                 states $ if (= :atom $ type-of *states)
                   do (println "\"[Memof warning] required dereferenced value in show-summary") (deref *states)
                   do (; "\"just use data when it's not atom") *states
-              println $ str &newline "\"[Memof Summary] of size " (count $ :entries states) (, "\". Currenly loop is ") (:loop states) "\"."
+              println $ str &newline "\"[Memof Summary] of size " (count $ :entries states) "\". Currenly loop is " (:loop states) "\"."
               &doseq
                 pair $ to-pairs (:entries states)
                 let
                     f $ first pair
-                    entry $ lasr pair
+                    entry $ last pair
                     hit-times $ :hit-times entry
                     missed-times $ :missed-times entry
-                  println "\" " f "\"hit:" hit-times "\"missed:" missed-times "\"hit-ratio:" $ if (pos? hit-times)
+                  println "\" " f "\"hit:" hit-times "\"missed:" missed-times "\"hit-ratio:" $ if (&> hit-times 0)
                     str
                       round $ * 100 (/ hit-times $ + missed-times hit-times)
                       , "\"%"
                     , "\"0%"
-                &doseq (p2 $ :records entry)
-                  let
-                      params $ first p2
-                      record $ last p2
-                    println "\"  " $ dissoc record :value
+                  &doseq (p2 $ :records entry)
+                    let
+                        params $ first p2
+                        record $ last p2
+                      println "\"  " $ dissoc record :value
         |user-scripts $ quote
           defn user-scripts (*states)
             def *states $ atom
@@ -77,6 +77,7 @@
                                   params $ first p2
                                   record $ last p2
                                 cond
+                                  
                                     &= 0 $ :hit-times record
                                     , true
                                   (> (- (:loop states-0) (:last-hit-loop record)) (:elapse-loop gc))
@@ -89,7 +90,7 @@
                   filter-not $ fn (pair)
                     empty? $ :records (last pair)
                   pairs-map
-              println $ str "\"[Memof GC] Performed GC, entries from " (count $ :entries states-0) (, "\" to ")
+              println $ str "\"[Memof GC] Performed GC, entries from " (count $ :entries states-0) "\" to "
                 count $ :entries (deref *states)
               println "\" Removed counts" $ frequencies (deref *removed-used)
               when (deref *verbose?) (show-memory-usages)
@@ -105,7 +106,7 @@
                 the-loop $ :loop (deref *states)
               if (contains? entries f)
                 if
-                  contains? (:records $ get entries f) (, params)
+                  contains? (:records $ get entries f) params
                   do
                     swap! *states update-in ([] :entries f)
                       fn (f-info)
@@ -123,7 +124,7 @@
           defn modify-gc-options! (*states options) (dev-check options lilac-gc-options)
             swap! *states update :gc $ fn (x0) (merge x0 options)
         |*verbose? $ quote
-          defatom *verbose? $ either (= "\"true" $ get-env "\"memofVerbose") (, false)
+          defatom *verbose? $ either (= "\"true" $ get-env "\"memofVerbose") false
         |show-memory-usages $ quote
           defn show-memory-usages () (; "\"not ready for nim")
         |new-loop! $ quote
@@ -239,7 +240,7 @@
         |memof-call $ quote
           defn memof-call (f & args)
             &let (v $ memof/access-record *memof-call-states f args)
-              if (some? v) v $ &let (result $ f & args) (memof/write-record! *memof-call-states f args result) (, result)
+              if (some? v) v $ &let (result $ f & args) (memof/write-record! *memof-call-states f args result) result
         |*memof-call-states $ quote
           defatom *memof-call-states $ memof/new-states ({})
         |reset-calling-caches! $ quote
