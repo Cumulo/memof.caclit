@@ -2,23 +2,29 @@
 # yarn lockfile v1
 
 
-"@calcit/procs@^0.2.62":
-  version "0.2.62"
-  resolved "https://registry.npm.taobao.org/@calcit/procs/download/@calcit/procs-0.2.62.tgz#ef92a8d5471f2bfa1edf4d3417a39ff2afd49f56"
-  integrity sha1-75Ko1UcfK/oe3000F6Of8q/Un1Y=
+"@calcit/procs@^0.3.0-a7":
+  version "0.3.0-a7"
+  resolved "https://registry.yarnpkg.com/@calcit/procs/-/procs-0.3.0-a7.tgz#83f2c41fcd69d00daf1416d12050f06bd9efffd1"
+  integrity sha512-fyhfzgNiijg4nMRVq6WFFCEotaVFlKg/28R5gYCCdaNcGmYGRFblUvVjc2c9jS790JcgRg+g6aP1PjQDOhQEsg==
   dependencies:
-    "@calcit/ternary-tree" "0.0.9"
-    "@cirru/parser.ts" "^0.0.1"
+    "@calcit/ternary-tree" "0.0.12"
+    "@cirru/parser.ts" "^0.0.3"
+    "@cirru/writer.ts" "^0.1.3"
 
-"@calcit/ternary-tree@0.0.9":
-  version "0.0.9"
-  resolved "https://registry.npm.taobao.org/@calcit/ternary-tree/download/@calcit/ternary-tree-0.0.9.tgz#8a1d5d4c18f541a541b4dad857e300537ae4f3ef"
-  integrity sha1-ih1dTBj1QaVBtNrYV+MAU3rk8+8=
+"@calcit/ternary-tree@0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@calcit/ternary-tree/-/ternary-tree-0.0.12.tgz#30f33a61e713f48e338b9fd3fd5ad9eabf3d1bdd"
+  integrity sha512-rouLsMVOEvposSCkYCWrbL6zEk7k9Z1cX23+Fe1wzjBYL0eqZIknwvzMOGnOoPyXuiPk1laM5mSFgOxd25cH4Q==
 
-"@cirru/parser.ts@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.npm.taobao.org/@cirru/parser.ts/download/@cirru/parser.ts-0.0.1.tgz#0870b051bd9f56626759ec22d7a0d5c51b19fe9c"
-  integrity sha1-CHCwUb2fVmJnWewi16DVxRsZ/pw=
+"@cirru/parser.ts@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@cirru/parser.ts/-/parser.ts-0.0.3.tgz#b0ba91ac9812631d0ac0b943922ebb4d04314066"
+  integrity sha512-Tdj4yd2nL1vxUm9aKqmuclAIRbVm7K3WJEqAzDAnR7oL7Iygwt7JzquRakm8DbSuNFsW7gazDS7wNJF5iowEoQ==
+
+"@cirru/writer.ts@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@cirru/writer.ts/-/writer.ts-0.1.3.tgz#5f54bdecaa20ba3dab16cbe6da711854138a9c0a"
+  integrity sha512-vJnhmhm7we5UfQIwmZfQpF3bAFbVybzT6LbmkbQHxgijaQg3gPfNVsnSIa3g3KpmWVtvkzEx+nUy5aMwsJiV1A==
 
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.2"
