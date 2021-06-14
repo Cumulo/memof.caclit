@@ -1167,7 +1167,7 @@
                           |T $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1608091740193) (:text |=) (:id |3vWmof5wlno)
                           |j $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1592323714536)
                             :data $ {}
-                              |T $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1619433666175) (:text |rem) (:id |QaOC9ugI8y9)
+                              |T $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1623692751462) (:text |.rem) (:id |QaOC9ugI8y9)
                               |j $ {} (:type :leaf) (:by |yeKFqj7rX) (:at 1592323714536) (:text |loop-count) (:id |oGR30BdL8q5)
                               |r $ {} (:type :expr) (:by |yeKFqj7rX) (:at 1592323714536)
                                 :data $ {}
@@ -2256,4 +2256,4 @@
     :init-fn |memof.main/main!
     :compact-output? true
     :storage-key |calcit.cirru
-    :version |0.0.6
+    :version |0.0.7
