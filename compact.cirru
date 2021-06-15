@@ -2,7 +2,7 @@
 {} (:package |memof)
   :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!)
     :modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru
-    :version |0.0.6
+    :version |0.0.7
   :files $ {}
     |memof.main $ {}
       :ns $ quote
@@ -155,7 +155,7 @@
                 loop-count $ :loop (deref *states)
                 gc $ :gc (deref *states)
               when
-                = 0 $ rem loop-count (:trigger-loop gc)
+                = 0 $ .rem loop-count (:trigger-loop gc)
                 perform-gc! *states
         |write-record! $ quote
           defn write-record! (*states f params value)
