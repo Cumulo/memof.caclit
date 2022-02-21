@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - main
   pull_request: {}
 
 jobs:
@@ -35,5 +36,5 @@ jobs:
     - name: "test js"
       run: >
         cr --emit-js --once
-        && yarn && target=node yarn webpack
+        && yarn && yarn bundle
         && node js-out/bundle.js

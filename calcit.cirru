@@ -1,9 +1,7 @@
 
 {}
-  :configs $ {} (:reload-fn |memof.main/reload!) (:port 6001) (:output |src) (:compact-output? true) (:local-storage-key |calcit-storage) (:storage-key |calcit.cirru) (:version |0.0.8)
-    :modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru
-    :init-fn |memof.main/main!
-    :extension |.cljs
+  :users $ {}
+    |yeKFqj7rX $ {} (:avatar nil) (:name |chen) (:nickname |chen) (:id |yeKFqj7rX) (:theme :star-trail) (:password |d41d8cd98f00b204e9800998ecf8427e)
   :ir $ {} (:package |memof)
     :files $ {}
       |memof.core $ {}
@@ -3657,5 +3655,8 @@
           :type :expr
           :at 1608008712000
           :by |yeKFqj7rX
-  :users $ {}
-    |yeKFqj7rX $ {} (:avatar nil) (:name |chen) (:nickname |chen) (:id |yeKFqj7rX) (:theme :star-trail) (:password |d41d8cd98f00b204e9800998ecf8427e)
+  :configs $ {} (:reload-fn |memof.main/reload!) (:port 6001) (:output |src) (:compact-output? true) (:local-storage-key |calcit-storage) (:storage-key |calcit.cirru) (:version |0.0.8)
+    :modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru
+    :init-fn |memof.main/main!
+    :extension |.cljs
+  :entries $ {}
