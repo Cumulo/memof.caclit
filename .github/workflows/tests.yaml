@@ -3,7 +3,6 @@ name: Tests
 on:
   push:
     branches:
-      - master
       - main
   pull_request: {}
 
@@ -11,7 +10,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
     - name: ACTIONS_ALLOW_UNSECURE_COMMANDS
       id: ACTIONS_ALLOW_UNSECURE_COMMANDS
@@ -31,10 +30,9 @@ jobs:
         && git clone https://github.com/calcit-lang/lilac
 
     - name: "test"
-      run: env=ci cr --once
+      run: env=ci cr -1
 
     - name: "test js"
       run: >
-        cr --emit-js --once
-        && yarn && yarn bundle
-        && node js-out/bundle.js
+        cr --emit-js -1
+        && yarn && node main.mjs
