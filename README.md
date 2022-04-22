@@ -4,12 +4,49 @@ Memof
 
 > A memoization library in calcit, port from [Cumulo/memof](https://github.com/Cumulo/memof).
 
-### Usages
+### Usage of `memof1-call`
+
+Call by comparing to last memoization cache, only 1 cache is stored:
+
+```cirru
+ns demo.main $ :require
+  memof.once :refer $ memof1-call memof1-call-by reset-memof1-caches!
+
+defn add3 (a b c) (+ a b c)
+
+; storing 1 item of caches for function
+memof1-call add3 1 2 3
+
+; storing items of caches of a function by a given key
+memof1-call-by |a-unique-key add3 1 2 3
+
+; clear caches after hot reloading
+reset-memof1-caches!
+```
+
+### Usage of `memof-call`
+
+Call with memoization caches, invalidated by LRU algorithm:
+
+```cirru
+ns demo.main $ :require
+  memof.alias :refer $ memof-call
+
+memof.alias/memof-call f ([] 1 2) 3
+
+; handle this at first on reload!
+memof.alias/reset-calling-caches!
+
+; increment calling loop
+memof.alias/tick-calling-loop!
+```
+
+### Usages of internal APIs
 
 The model behind memof is memoizationm but with cache invalidations. `new-loop!` is the API to tell memof new loop happened. If stored record is old enough, it will be removed.
 
 ```cirru
-(ns demo.main (:require ([] memof.core :as memof)))
+ns demo.main (:require ([] memof.core :as memof))
 
 ; pass GC options
 defatom *states $ memof.core/new-caches ({})
@@ -23,18 +60,6 @@ memof.core/access-record *states f1 ([] 1 2)
 
 memof.core/new-loop! *states
 ; when loop is large enough, it will trigger GC
-```
-
-A short hand for using it:
-
-```cirru
-memof.alias/memof-call f ([] 1 2) 3
-
-; handle this at first on reload!
-memof.alias/reset-calling-caches!
-
-; increment calling loop
-memof.alias/tick-calling-loop!
 ```
 
 States structure:
