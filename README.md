@@ -1,6 +1,4 @@
-
-Memof
-----
+## Memof
 
 > A memoization library in calcit, port from [Cumulo/memof](https://github.com/Cumulo/memof).
 
@@ -26,7 +24,7 @@ reset-memof1-caches!
 
 To clear caching of a specific function:
 
-``cirru
+```cirru
 swap! memof.once/*keyed-call-caches dissoc f
 ```
 
@@ -90,14 +88,14 @@ States structure:
 
 Methods:
 
-* `(new-states)` creates states holding all entries
-* `(show-summary @*states)` list entries after formatted
-* `(write-record! *states f params value)` write to cache, `params` supposed to be a collection
-* `(access-record *states f params)` access and return value(or `nil`)
-* `(new-loop! *states)` loop and trigger actions
-* `(perform-gc! *states)` remove entries that are probably no longer useful
-* `(reset-entries! *states)` clear entries
-* `(modify-gc-options! *states ({}))` modify GC options
+- `(new-states)` creates states holding all entries
+- `(show-summary @*states)` list entries after formatted
+- `(write-record! *states f params value)` write to cache, `params` supposed to be a collection
+- `(access-record *states f params)` access and return value(or `nil`)
+- `(new-loop! *states)` loop and trigger actions
+- `(perform-gc! *states)` remove entries that are probably no longer useful
+- `(reset-entries! *states)` clear entries
+- `(modify-gc-options! *states ({}))` modify GC options
 
 Set `memofVerbose=true` in environment to enable verbose mode to print debug logs.
 Alternatively, you can access and overwrite `memof.core/*verbose?` to enabled it.
