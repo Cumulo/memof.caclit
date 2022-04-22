@@ -17,11 +17,17 @@ defn add3 (a b c) (+ a b c)
 ; storing 1 item of caches for function
 memof1-call add3 1 2 3
 
-; storing items of caches of a function by a given key
+; storing items of caches of a function by a given key, pass nil to skip
 memof1-call-by |a-unique-key add3 1 2 3
 
 ; clear caches after hot reloading
 reset-memof1-caches!
+```
+
+To clear caching of a specific function:
+
+``cirru
+swap! memof.once/*keyed-call-caches dissoc f
 ```
 
 ### Usage of `memof-call`
