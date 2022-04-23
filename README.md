@@ -1,15 +1,56 @@
-
-Memof
-----
+## Memof
 
 > A memoization library in calcit, port from [Cumulo/memof](https://github.com/Cumulo/memof).
 
-### Usages
+### Usage of `memof1-call`
+
+Call by comparing to last memoization cache, only 1 cache is stored:
+
+```cirru
+ns demo.main $ :require
+  memof.once :refer $ memof1-call memof1-call-by reset-memof1-caches!
+
+defn add3 (a b c) (+ a b c)
+
+; storing 1 item of caches for function
+memof1-call add3 1 2 3
+
+; storing items of caches of a function by a given key, pass nil to skip
+memof1-call-by |a-unique-key add3 1 2 3
+
+; clear caches after hot reloading
+reset-memof1-caches!
+```
+
+To clear caching of a specific function:
+
+```cirru
+swap! memof.once/*keyed-call-caches dissoc f
+```
+
+### Usage of `memof-call`
+
+Call with memoization caches, invalidated by LRU algorithm:
+
+```cirru
+ns demo.main $ :require
+  memof.alias :refer $ memof-call
+
+memof.alias/memof-call f ([] 1 2) 3
+
+; handle this at first on reload!
+memof.alias/reset-calling-caches!
+
+; increment calling loop
+memof.alias/tick-calling-loop!
+```
+
+### Usages of internal APIs
 
 The model behind memof is memoizationm but with cache invalidations. `new-loop!` is the API to tell memof new loop happened. If stored record is old enough, it will be removed.
 
 ```cirru
-(ns demo.main (:require ([] memof.core :as memof)))
+ns demo.main (:require ([] memof.core :as memof))
 
 ; pass GC options
 defatom *states $ memof.core/new-caches ({})
@@ -23,18 +64,6 @@ memof.core/access-record *states f1 ([] 1 2)
 
 memof.core/new-loop! *states
 ; when loop is large enough, it will trigger GC
-```
-
-A short hand for using it:
-
-```cirru
-memof.alias/memof-call f ([] 1 2) 3
-
-; handle this at first on reload!
-memof.alias/reset-calling-caches!
-
-; increment calling loop
-memof.alias/tick-calling-loop!
 ```
 
 States structure:
@@ -59,14 +88,14 @@ States structure:
 
 Methods:
 
-* `(new-states)` creates states holding all entries
-* `(show-summary @*states)` list entries after formatted
-* `(write-record! *states f params value)` write to cache, `params` supposed to be a collection
-* `(access-record *states f params)` access and return value(or `nil`)
-* `(new-loop! *states)` loop and trigger actions
-* `(perform-gc! *states)` remove entries that are probably no longer useful
-* `(reset-entries! *states)` clear entries
-* `(modify-gc-options! *states ({}))` modify GC options
+- `(new-states)` creates states holding all entries
+- `(show-summary @*states)` list entries after formatted
+- `(write-record! *states f params value)` write to cache, `params` supposed to be a collection
+- `(access-record *states f params)` access and return value(or `nil`)
+- `(new-loop! *states)` loop and trigger actions
+- `(perform-gc! *states)` remove entries that are probably no longer useful
+- `(reset-entries! *states)` clear entries
+- `(modify-gc-options! *states ({}))` modify GC options
 
 Set `memofVerbose=true` in environment to enable verbose mode to print debug logs.
 Alternatively, you can access and overwrite `memof.core/*verbose?` to enabled it.

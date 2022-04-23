@@ -1,6 +1,6 @@
 
 {} (:package |memof)
-  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.8)
+  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.10)
     :modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru
   :entries $ {}
   :files $ {}
@@ -197,7 +197,8 @@
                         {} (:value value) (:initial-loop the-loop) (:last-hit-loop the-loop) (:hit-times 0)
       :ns $ quote
         ns memof.core $ :require
-          [] lilac.core :refer $ [] dev-check record+ number+ optional+ *in-dev? validate-lilac
+          lilac.core :refer $ dev-check record+ number+ optional+ *in-dev? validate-lilac
+          memof.once :as once
     |memof.main $ {}
       :defs $ {}
         |*states $ quote
@@ -212,12 +213,71 @@
         ns memof.main $ :require ([] memof.core :as memof)
           [] memof.test :refer $ [] run-tests
           [] memof.alias :refer $ [] reset-calling-caches!
+    |memof.once $ {}
+      :defs $ {}
+        |*keyed-call-caches $ quote
+          defatom *keyed-call-caches $ {}
+        |*singleton-call-caches $ quote
+          defatom *singleton-call-caches $ {}
+        |memof1-call $ quote
+          defn memof1-call (f & args)
+            &let
+              caches $ deref *singleton-call-caches
+              if (contains? caches f)
+                &let
+                  pair $ get caches f
+                  if
+                    = args $ first pair
+                    last pair
+                    &let
+                      ret $ f & args
+                      swap! *singleton-call-caches assoc f $ [] args ret
+                      , ret
+                &let
+                  ret $ f & args
+                  swap! *singleton-call-caches assoc f $ [] args ret
+                  , ret
+        |memof1-call-by $ quote
+          defn memof1-call-by (key f & args)
+            if (nil? key) (f & args)
+              &let (caches @*keyed-call-caches)
+                if (contains? caches f)
+                  &let
+                    dict $ get caches f
+                    if (contains? dict key)
+                      &let
+                        pair $ get dict key
+                        if
+                          = args $ first pair
+                          last pair
+                          &let
+                            ret $ f & args
+                            swap! *keyed-call-caches assoc-in ([] f key) ([] args ret)
+                            , ret
+                      &let
+                        ret $ f & args
+                        swap! *keyed-call-caches assoc-in ([] f key) ([] args ret)
+                        , ret
+                  &let
+                    ret $ f & args
+                    swap! *keyed-call-caches assoc-in ([] f key) ([] args ret)
+                    , ret
+        |reset-memof1-caches! $ quote
+          defn reset-memof1-caches! ()
+            reset! *singleton-call-caches $ {}
+            reset! *keyed-call-caches $ {}
+      :ns $ quote (ns memof.once)
     |memof.test $ {}
       :defs $ {}
+        |*call-count $ quote (defatom *call-count 0)
         |*states $ quote
           defatom *states $ {}
+        |add3 $ quote
+          defn add3 (a b c) (println "\" ::: calling add3") (+ a b c)
+        |add3-key $ quote
+          defn add3-key (a b c) (swap! *call-count inc) (+ a b c)
         |run-tests $ quote
-          defn run-tests () (reset! *quit-on-failure? true) (test-gc) (test-reset) (test-write) (test-memof-call)
+          defn run-tests () (reset! *quit-on-failure? true) (test-gc) (test-reset) (test-write) (test-memof-call) (test-memof1-call) (test-memof1-call-by)
         |test-gc $ quote
           deftest test-gc $ let
               f1 $ fn () nil
@@ -239,6 +299,22 @@
               = (memof-call + 1 2 3) 6
             tick-calling-loop!
             reset-calling-caches!
+        |test-memof1-call $ quote
+          deftest test-memof1-call $ testing "\"usage of memof1-call"
+            is $ = (once/memof1-call add3 1 2 3) 6
+            is $ = (once/memof1-call add3 1 2 3) 6
+            once/reset-memof1-caches!
+        |test-memof1-call-by $ quote
+          deftest test-memof1-call-by $ testing "\"usage of memof1-call" (reset! *call-count 0)
+            is $ = (once/memof1-call-by "\"a" add3-key 1 2 3) 6
+            is $ = (once/memof1-call-by nil add3-key 1 2 3) 6
+            is $ = (once/memof1-call-by "\"b" add3-key 1 2 3) 6
+            is $ = (once/memof1-call-by "\"b" add3-key 1 2 3) 6
+            is $ = 3 @*call-count
+            swap! once/*keyed-call-caches dissoc add3-key
+            is $ = (once/memof1-call-by "\"b" add3-key 1 2 3) 6
+            is $ = 4 @*call-count
+            once/reset-memof1-caches!
         |test-reset $ quote
           deftest test-reset $ let
               f1 $ fn (x) x
@@ -276,3 +352,4 @@
           [] memof.core :as memof
           [] lilac.core :refer $ [] *in-dev? validate-lilac
           [] memof.alias :refer $ [] memof-call reset-calling-caches! tick-calling-loop!
+          memof.once :as once
