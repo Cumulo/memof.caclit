@@ -8,7 +8,7 @@ Call by comparing to last memoization cache, only 1 cache is stored:
 
 ```cirru
 ns demo.main $ :require
-  memof.once :refer $ memof1-call memof1-call-by reset-memof1-caches!
+  memof.once :refer $ memof1-call memof1-call-by reset-memof1-caches! memof1-as
 
 defn add3 (a b c) (+ a b c)
 
@@ -26,6 +26,12 @@ To clear caching of a specific function:
 
 ```cirru
 swap! memof.once/*keyed-call-caches dissoc f
+```
+
+A macro for caching a value of an expression directly with a key:
+
+```cirru
+memof1-as |key (+ 1 2)
 ```
 
 ### Usage of `memof-call`

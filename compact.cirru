@@ -1,6 +1,6 @@
 
 {} (:package |memof)
-  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.10)
+  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.11)
     :modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru
   :entries $ {}
   :files $ {}
@@ -27,9 +27,7 @@
         |*removed-used $ quote
           defatom *removed-used $ []
         |*verbose? $ quote
-          defatom *verbose? $ either
-            = "\"true" $ get-env "\"memofVerbose"
-            , false
+          defatom *verbose? $ = "\"true" (get-env "\"memofVerbose" "\"false")
         |access-record $ quote
           defn access-record (*states f params)
             let
@@ -217,8 +215,18 @@
       :defs $ {}
         |*keyed-call-caches $ quote
           defatom *keyed-call-caches $ {}
+        |*once-caches $ quote
+          defatom *once-caches $ {}
         |*singleton-call-caches $ quote
           defatom *singleton-call-caches $ {}
+        |memof1-as $ quote
+          defmacro memof1-as (key v)
+            let
+                k $ gensym "\"k"
+                result $ gensym "\"result"
+              quasiquote $ &let (~k ~key)
+                if (contains? @*once-caches ~k) (get @*once-caches ~k)
+                  &let (~result ~v) (swap! *once-caches assoc ~k ~result) ~result
         |memof1-call $ quote
           defn memof1-call (f & args)
             &let
@@ -266,6 +274,7 @@
           defn reset-memof1-caches! ()
             reset! *singleton-call-caches $ {}
             reset! *keyed-call-caches $ {}
+            reset! *once-caches $ {}
       :ns $ quote (ns memof.once)
     |memof.test $ {}
       :defs $ {}
@@ -277,7 +286,7 @@
         |add3-key $ quote
           defn add3-key (a b c) (swap! *call-count inc) (+ a b c)
         |run-tests $ quote
-          defn run-tests () (reset! *quit-on-failure? true) (test-gc) (test-reset) (test-write) (test-memof-call) (test-memof1-call) (test-memof1-call-by)
+          defn run-tests () (reset! *quit-on-failure? true) (test-gc) (test-reset) (test-write) (test-memof-call) (test-memof1-call) (test-memof1-call-by) (test-memof1-as)
         |test-gc $ quote
           deftest test-gc $ let
               f1 $ fn () nil
@@ -299,6 +308,14 @@
               = (memof-call + 1 2 3) 6
             tick-calling-loop!
             reset-calling-caches!
+        |test-memof1-as $ quote
+          deftest test-memof1-as $ testing "\"memof1-as test" (reset! *call-count 0)
+            is $ = 0
+              once/memof1-as 0 $ do (swap! *call-count inc) 0
+            is $ = 1 @*call-count
+            is $ = 0
+              once/memof1-as 0 $ do (swap! *call-count inc) 0
+            is $ = 1 @*call-count
         |test-memof1-call $ quote
           deftest test-memof1-call $ testing "\"usage of memof1-call"
             is $ = (once/memof1-call add3 1 2 3) 6
