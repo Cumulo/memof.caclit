@@ -1,6 +1,6 @@
 
 {} (:package |memof)
-  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.11)
+  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.12)
     :modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru
   :entries $ {}
   :files $ {}
@@ -225,38 +225,36 @@
                 k $ gensym "\"k"
                 result $ gensym "\"result"
               quasiquote $ &let (~k ~key)
-                if (contains? @*once-caches ~k) (get @*once-caches ~k)
+                if (&map:contains? @*once-caches ~k) (&map:get @*once-caches ~k)
                   &let (~result ~v) (swap! *once-caches assoc ~k ~result) ~result
         |memof1-call $ quote
           defn memof1-call (f & args)
             &let
               caches $ deref *singleton-call-caches
-              if (contains? caches f)
-                &let
-                  pair $ get caches f
-                  if
-                    = args $ first pair
-                    last pair
-                    &let
-                      ret $ f & args
-                      swap! *singleton-call-caches assoc f $ [] args ret
-                      , ret
-                &let
-                  ret $ f & args
-                  swap! *singleton-call-caches assoc f $ [] args ret
-                  , ret
+              tag-match
+                or (&map:get caches f) (:: :none)
+                (:some m-args m-v)
+                  if (&= args m-args) m-v $ &let
+                    ret $ f & args
+                    swap! *singleton-call-caches assoc f $ :: :some args ret
+                    , ret
+                (:none)
+                  &let
+                    ret $ f & args
+                    swap! *singleton-call-caches assoc f $ :: :some args ret
+                    , ret
         |memof1-call-by $ quote
           defn memof1-call-by (key f & args)
             if (nil? key) (f & args)
               &let (caches @*keyed-call-caches)
-                if (contains? caches f)
+                if (&map:contains? caches f)
                   &let
-                    dict $ get caches f
-                    if (contains? dict key)
+                    dict $ &map:get caches f
+                    if (&map:contains? dict key)
                       &let
-                        pair $ get dict key
+                        pair $ &map:get dict key
                         if
-                          = args $ first pair
+                          &= args $ first pair
                           last pair
                           &let
                             ret $ f & args
