@@ -1,16 +1,15 @@
 
 {} (:package |memof)
-  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.13)
+  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.14)
     :modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru
   :entries $ {}
   :files $ {}
-    |memof.alias $ {}
+    |memof.alias $ %{} :FileEntry
       :defs $ {}
-        |*memof-call-states $ %{} :CodeEntry
+        |*memof-call-states $ %{} :CodeEntry (:doc |)
           :code $ quote
             defatom *memof-call-states $ memof/new-states ({})
-          :doc |
-        |memof-call $ %{} :CodeEntry
+        |memof-call $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn memof-call (f & args)
               &let
@@ -19,30 +18,24 @@
                   result $ f & args
                   memof/write-record! *memof-call-states f args result
                   , result
-          :doc |
-        |reset-calling-caches! $ %{} :CodeEntry
+        |reset-calling-caches! $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn reset-calling-caches! () $ memof/reset-entries! *memof-call-states
-          :doc |
-        |tick-calling-loop! $ %{} :CodeEntry
+        |tick-calling-loop! $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn tick-calling-loop! () $ memof/new-loop! *memof-call-states
-          :doc |
-      :ns $ %{} :CodeEntry
+      :ns $ %{} :CodeEntry (:doc |)
         :code $ quote
           ns memof.alias $ :require ([] memof.core :as memof)
-        :doc |
-    |memof.core $ {}
+    |memof.core $ %{} :FileEntry
       :defs $ {}
-        |*removed-used $ %{} :CodeEntry
+        |*removed-used $ %{} :CodeEntry (:doc |)
           :code $ quote
             defatom *removed-used $ []
-          :doc |
-        |*verbose? $ %{} :CodeEntry
+        |*verbose? $ %{} :CodeEntry (:doc |)
           :code $ quote
             defatom *verbose? $ = "\"true" (get-env "\"memofVerbose" "\"false")
-          :doc |
-        |access-record $ %{} :CodeEntry
+        |access-record $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn access-record (*states f params)
               let
@@ -66,8 +59,7 @@
                       swap! *states update-in ([] :entries f :missed-times) inc
                       , nil
                   , nil
-          :doc |
-        |lilac-gc-options $ %{} :CodeEntry
+        |lilac-gc-options $ %{} :CodeEntry (:doc |)
           :code $ quote
             def lilac-gc-options $ optional+
               record+
@@ -75,13 +67,11 @@
                   :trigger-loop $ number+
                   :elapse-loop $ number+
                 {} (:check-keys? true) (:all-optional? true)
-          :doc |
-        |modify-gc-options! $ %{} :CodeEntry
+        |modify-gc-options! $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn modify-gc-options! (*states options) (dev-check options lilac-gc-options)
               swap! *states update :gc $ fn (x0) (merge x0 options)
-          :doc |
-        |new-loop! $ %{} :CodeEntry
+        |new-loop! $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn new-loop! (*states)
               assert "\"expects atom for *states" $ = :ref (type-of *states)
@@ -92,8 +82,7 @@
                 when
                   = 0 $ .rem loop-count (:trigger-loop gc)
                   perform-gc! *states
-          :doc |
-        |new-states $ %{} :CodeEntry
+        |new-states $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn new-states (gc-options) (dev-check gc-options lilac-gc-options)
               let
@@ -104,8 +93,7 @@
                 {} (:loop 0)
                   :entries $ {}
                   :gc options
-          :doc |
-        |perform-gc! $ %{} :CodeEntry
+        |perform-gc! $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn perform-gc! (*states)
               let
@@ -140,18 +128,15 @@
                       count $ :entries (deref *states)
                   println "\" Removed counts" $ frequencies (deref *removed-used)
                 when (deref *verbose?) (show-memory-usages)
-          :doc |
-        |reset-entries! $ %{} :CodeEntry
+        |reset-entries! $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn reset-entries! (*states) (println "\"[Memof] reset.")
               swap! *states merge $ {} (:loop 0)
                 :entries $ {}
-          :doc |
-        |show-memory-usages $ %{} :CodeEntry
+        |show-memory-usages $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn show-memory-usages () $ ; "\"not ready for nim"
-          :doc |
-        |show-summary $ %{} :CodeEntry
+        |show-summary $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn show-summary (*states)
               let
@@ -181,8 +166,7 @@
                           params $ first p2
                           record $ last p2
                         println "\"  " $ dissoc record :value
-          :doc |
-        |user-scripts $ %{} :CodeEntry
+        |user-scripts $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn user-scripts (*states)
               def *states $ atom
@@ -199,8 +183,7 @@
               show-summary @*states
               perform-gc! *states
               identity @*states
-          :doc |
-        |write-record! $ %{} :CodeEntry
+        |write-record! $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn write-record! (*states f params value)
               let
@@ -228,50 +211,41 @@
                             update :hit-times inc
                         assoc-in entry ([] :records params)
                           {} (:value value) (:initial-loop the-loop) (:last-hit-loop the-loop) (:hit-times 0)
-          :doc |
-      :ns $ %{} :CodeEntry
+      :ns $ %{} :CodeEntry (:doc |)
         :code $ quote
           ns memof.core $ :require
             lilac.core :refer $ dev-check record+ number+ optional+ *in-dev? validate-lilac
             memof.once :as once
-        :doc |
-    |memof.main $ {}
+    |memof.main $ %{} :FileEntry
       :defs $ {}
-        |*states $ %{} :CodeEntry
+        |*states $ %{} :CodeEntry (:doc |)
           :code $ quote
             defatom *states $ memof/new-states ({})
-          :doc |
-        |main! $ %{} :CodeEntry
+        |main! $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn main! () (println "\"Started.")
               memof/show-summary $ deref *states
               run-tests
-          :doc |
-        |reload! $ %{} :CodeEntry
+        |reload! $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn reload! () (reset-calling-caches!) (println "\"Reloaded!") (run-tests)
-          :doc |
-      :ns $ %{} :CodeEntry
+      :ns $ %{} :CodeEntry (:doc |)
         :code $ quote
           ns memof.main $ :require ([] memof.core :as memof)
             [] memof.test :refer $ [] run-tests
             [] memof.alias :refer $ [] reset-calling-caches!
-        :doc |
-    |memof.once $ {}
+    |memof.once $ %{} :FileEntry
       :defs $ {}
-        |*keyed-call-caches $ %{} :CodeEntry
+        |*keyed-call-caches $ %{} :CodeEntry (:doc |)
           :code $ quote
             defatom *keyed-call-caches $ {}
-          :doc |
-        |*once-caches $ %{} :CodeEntry
+        |*once-caches $ %{} :CodeEntry (:doc |)
           :code $ quote
             defatom *once-caches $ {}
-          :doc |
-        |*singleton-call-caches $ %{} :CodeEntry
+        |*singleton-call-caches $ %{} :CodeEntry (:doc |)
           :code $ quote
             defatom *singleton-call-caches $ {}
-          :doc |
-        |memof1-as $ %{} :CodeEntry
+        |memof1-as $ %{} :CodeEntry (:doc |)
           :code $ quote
             defmacro memof1-as (key v)
               let
@@ -280,8 +254,7 @@
                 quasiquote $ &let (~k ~key)
                   if (&map:contains? @*once-caches ~k) (&map:get @*once-caches ~k)
                     &let (~result ~v) (swap! *once-caches assoc ~k ~result) ~result
-          :doc |
-        |memof1-call $ %{} :CodeEntry
+        |memof1-call $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn memof1-call (f & args)
               &let
@@ -298,8 +271,7 @@
                       ret $ f & args
                       swap! *singleton-call-caches assoc f $ :: :some args ret
                       , ret
-          :doc |
-        |memof1-call-by $ %{} :CodeEntry
+        |memof1-call-by $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn memof1-call-by (key f & args)
               if (nil? key) (f & args)
@@ -325,39 +297,31 @@
                       ret $ f & args
                       swap! *keyed-call-caches assoc-in ([] f key) ([] args ret)
                       , ret
-          :doc |
-        |reset-memof1-caches! $ %{} :CodeEntry
+        |reset-memof1-caches! $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn reset-memof1-caches! ()
               reset! *singleton-call-caches $ {}
               reset! *keyed-call-caches $ {}
               reset! *once-caches $ {}
-          :doc |
-      :ns $ %{} :CodeEntry
+      :ns $ %{} :CodeEntry (:doc |)
         :code $ quote (ns memof.once)
-        :doc |
-    |memof.test $ {}
+    |memof.test $ %{} :FileEntry
       :defs $ {}
-        |*call-count $ %{} :CodeEntry
+        |*call-count $ %{} :CodeEntry (:doc |)
           :code $ quote (defatom *call-count 0)
-          :doc |
-        |*states $ %{} :CodeEntry
+        |*states $ %{} :CodeEntry (:doc |)
           :code $ quote
             defatom *states $ {}
-          :doc |
-        |add3 $ %{} :CodeEntry
+        |add3 $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn add3 (a b c) (println "\" ::: calling add3") (+ a b c)
-          :doc |
-        |add3-key $ %{} :CodeEntry
+        |add3-key $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn add3-key (a b c) (swap! *call-count inc) (+ a b c)
-          :doc |
-        |run-tests $ %{} :CodeEntry
+        |run-tests $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn run-tests () (reset! *quit-on-failure? true) (test-gc) (test-reset) (test-write) (test-memof-call) (test-memof1-call) (test-memof1-call-by) (test-memof1-as)
-          :doc |
-        |test-gc $ %{} :CodeEntry
+        |test-gc $ %{} :CodeEntry (:doc |)
           :code $ quote
             deftest test-gc $ let
                 f1 $ fn () nil
@@ -371,8 +335,7 @@
                 nil? $ memof/access-record *states f1 ([] 1 2 3)
               testing "\"used record should kept after GC" $ is
                 some? $ memof/access-record *states f1 ([] 1 2)
-          :doc |
-        |test-memof-call $ %{} :CodeEntry
+        |test-memof-call $ %{} :CodeEntry (:doc |)
           :code $ quote
             deftest test-memof-call $ testing "\"usage of memof-call"
               is $ with-cpu-time
@@ -381,8 +344,7 @@
                 = (memof-call + 1 2 3) 6
               tick-calling-loop!
               reset-calling-caches!
-          :doc |
-        |test-memof1-as $ %{} :CodeEntry
+        |test-memof1-as $ %{} :CodeEntry (:doc |)
           :code $ quote
             deftest test-memof1-as $ testing "\"memof1-as test" (reset! *call-count 0)
               is $ = 0
@@ -391,15 +353,13 @@
               is $ = 0
                 once/memof1-as 0 $ do (swap! *call-count inc) 0
               is $ = 1 @*call-count
-          :doc |
-        |test-memof1-call $ %{} :CodeEntry
+        |test-memof1-call $ %{} :CodeEntry (:doc |)
           :code $ quote
             deftest test-memof1-call $ testing "\"usage of memof1-call"
               is $ = (once/memof1-call add3 1 2 3) 6
               is $ = (once/memof1-call add3 1 2 3) 6
               once/reset-memof1-caches!
-          :doc |
-        |test-memof1-call-by $ %{} :CodeEntry
+        |test-memof1-call-by $ %{} :CodeEntry (:doc |)
           :code $ quote
             deftest test-memof1-call-by $ testing "\"usage of memof1-call" (reset! *call-count 0)
               is $ = (once/memof1-call-by "\"a" add3-key 1 2 3) 6
@@ -411,8 +371,7 @@
               is $ = (once/memof1-call-by "\"b" add3-key 1 2 3) 6
               is $ = 4 @*call-count
               once/reset-memof1-caches!
-          :doc |
-        |test-reset $ %{} :CodeEntry
+        |test-reset $ %{} :CodeEntry (:doc |)
           :code $ quote
             deftest test-reset $ let
                 f1 $ fn (x) x
@@ -426,8 +385,7 @@
               testing "\"should have two entries" $ is
                 = 0 $ count
                   :entries $ deref *states
-          :doc |
-        |test-write $ %{} :CodeEntry
+        |test-write $ %{} :CodeEntry (:doc |)
           :code $ quote
             deftest test-write $ let
                 f1 $ fn (x) x
@@ -446,8 +404,7 @@
               testing "\"overwrites record" $ is
                 = 2 $ memof/access-record *states f2 ([] 1 2)
               memof/new-loop! *states
-          :doc |
-      :ns $ %{} :CodeEntry
+      :ns $ %{} :CodeEntry (:doc |)
         :code $ quote
           ns memof.test $ :require
             [] calcit-test.core :refer $ [] deftest testing is *quit-on-failure?
@@ -455,4 +412,3 @@
             [] lilac.core :refer $ [] *in-dev? validate-lilac
             [] memof.alias :refer $ [] memof-call reset-calling-caches! tick-calling-loop!
             memof.once :as once
-        :doc |
