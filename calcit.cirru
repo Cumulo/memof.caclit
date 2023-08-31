@@ -1,13 +1,12 @@
 
 {} (:package |memof)
-  :configs $ {} (:compact-output? true) (:extension |.cljs) (:init-fn |memof.main/main!) (:local-storage-key |calcit-storage) (:output |src) (:port 6001) (:reload-fn |memof.main/reload!) (:storage-key |calcit.cirru) (:version |0.0.13)
+  :configs $ {} (:compact-output? true) (:extension |.cljs) (:init-fn |memof.main/main!) (:local-storage-key |calcit-storage) (:output |src) (:port 6001) (:reload-fn |memof.main/reload!) (:storage-key |calcit.cirru) (:version |0.0.14)
     :modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru
   :entries $ {}
   :files $ {}
-    |memof.alias $ {}
-      :configs $ {}
+    |memof.alias $ %{} :FileEntry
       :defs $ {}
-        |*memof-call-states $ %{} :CodeEntry
+        |*memof-call-states $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1608008325323) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1608008328412) (:by |yeKFqj7rX) (:text |defatom)
@@ -18,8 +17,7 @@
                   |j $ %{} :Expr (:at 1608008346000) (:by |yeKFqj7rX)
                     :data $ {}
                       |T $ %{} :Leaf (:at 1608008346000) (:by |yeKFqj7rX) (:text |{})
-          :doc |
-        |memof-call $ %{} :CodeEntry
+        |memof-call $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1608008121307) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1608008121307) (:by |yeKFqj7rX) (:text |defn)
@@ -68,8 +66,7 @@
                               |r $ %{} :Leaf (:at 1608008367381) (:by |yeKFqj7rX) (:text |args)
                               |v $ %{} :Leaf (:at 1608008392241) (:by |yeKFqj7rX) (:text |result)
                           |v $ %{} :Leaf (:at 1608008395750) (:by |yeKFqj7rX) (:text |result)
-          :doc |
-        |reset-calling-caches! $ %{} :CodeEntry
+        |reset-calling-caches! $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1608008805393) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1608008807418) (:by |yeKFqj7rX) (:text |defn)
@@ -80,8 +77,7 @@
                 :data $ {}
                   |T $ %{} :Leaf (:at 1608008852708) (:by |yeKFqj7rX) (:text |memof/reset-entries!)
                   |j $ %{} :Leaf (:at 1608008857814) (:by |yeKFqj7rX) (:text |*memof-call-states)
-          :doc |
-        |tick-calling-loop! $ %{} :CodeEntry
+        |tick-calling-loop! $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1608090797792) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1608090797792) (:by |yeKFqj7rX) (:text |defn)
@@ -92,8 +88,7 @@
                 :data $ {}
                   |T $ %{} :Leaf (:at 1608090827250) (:by |yeKFqj7rX) (:text |memof/new-loop!)
                   |j $ %{} :Leaf (:at 1608090831878) (:by |yeKFqj7rX) (:text |*memof-call-states)
-          :doc |
-      :ns $ %{} :CodeEntry
+      :ns $ %{} :CodeEntry (:doc |)
         :code $ %{} :Expr (:at 1608008712000) (:by |yeKFqj7rX)
           :data $ {}
             |T $ %{} :Leaf (:at 1608008712000) (:by |yeKFqj7rX) (:text |ns)
@@ -107,11 +102,9 @@
                     |j $ %{} :Leaf (:at 1608008747463) (:by |yeKFqj7rX) (:text |memof.core)
                     |r $ %{} :Leaf (:at 1608008749455) (:by |yeKFqj7rX) (:text |:as)
                     |v $ %{} :Leaf (:at 1608008752272) (:by |yeKFqj7rX) (:text |memof)
-        :doc |
-    |memof.core $ {}
-      :configs $ {}
+    |memof.core $ %{} :FileEntry
       :defs $ {}
-        |*removed-used $ %{} :CodeEntry
+        |*removed-used $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1607086050653) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1607086052485) (:by |yeKFqj7rX) (:text |defatom)
@@ -119,8 +112,7 @@
               |r $ %{} :Expr (:at 1607086050653) (:by |yeKFqj7rX)
                 :data $ {}
                   |T $ %{} :Leaf (:at 1607086053712) (:by |yeKFqj7rX) (:text |[])
-          :doc |
-        |*verbose? $ %{} :CodeEntry
+        |*verbose? $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1596124818505) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1608007967838) (:by |yeKFqj7rX) (:text |defatom)
@@ -134,8 +126,7 @@
                       |T $ %{} :Leaf (:at 1607081027983) (:by |yeKFqj7rX) (:text |get-env)
                       |j $ %{} :Leaf (:at 1607081032022) (:by |yeKFqj7rX) (:text "|\"memofVerbose")
                       |n $ %{} :Leaf (:at 1650967099514) (:by |yeKFqj7rX) (:text "|\"false")
-          :doc |
-        |access-record $ %{} :CodeEntry
+        |access-record $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -277,8 +268,7 @@
                                   |q $ %{} :Leaf (:at 1594401830478) (:by |yeKFqj7rX) (:text |inc)
                               |r $ %{} :Leaf (:at 1594401696633) (:by |yeKFqj7rX) (:text |nil)
                       |v $ %{} :Leaf (:at 1594401698746) (:by |yeKFqj7rX) (:text |nil)
-          :doc |
-        |lilac-gc-options $ %{} :CodeEntry
+        |lilac-gc-options $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1594054437500) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1594054437500) (:by |yeKFqj7rX) (:text |def)
@@ -315,8 +305,7 @@
                             :data $ {}
                               |T $ %{} :Leaf (:at 1594054504312) (:by |yeKFqj7rX) (:text |:all-optional?)
                               |j $ %{} :Leaf (:at 1594054504936) (:by |yeKFqj7rX) (:text |true)
-          :doc |
-        |modify-gc-options! $ %{} :CodeEntry
+        |modify-gc-options! $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1594536118731) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1594536118731) (:by |yeKFqj7rX) (:text |defn)
@@ -347,8 +336,7 @@
                           |T $ %{} :Leaf (:at 1594536165160) (:by |yeKFqj7rX) (:text |merge)
                           |j $ %{} :Leaf (:at 1594536169962) (:by |yeKFqj7rX) (:text |x0)
                           |r $ %{} :Leaf (:at 1594536168539) (:by |yeKFqj7rX) (:text |options)
-          :doc |
-        |new-loop! $ %{} :CodeEntry
+        |new-loop! $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -419,8 +407,7 @@
                         :data $ {}
                           |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |perform-gc!)
                           |j $ %{} :Leaf (:at 1593965098681) (:by |yeKFqj7rX) (:text |*states)
-          :doc |
-        |new-states $ %{} :CodeEntry
+        |new-states $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1593964836124) (:by |yeKFqj7rX) (:text |defn)
@@ -488,8 +475,7 @@
                         :data $ {}
                           |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |:gc)
                           |j $ %{} :Leaf (:at 1593964938071) (:by |yeKFqj7rX) (:text |options)
-          :doc |
-        |perform-gc! $ %{} :CodeEntry
+        |perform-gc! $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -734,8 +720,7 @@
                       |T $ %{} :Expr (:at 1594745519019) (:by |yeKFqj7rX)
                         :data $ {}
                           |T $ %{} :Leaf (:at 1594745518666) (:by |yeKFqj7rX) (:text |show-memory-usages)
-          :doc |
-        |reset-entries! $ %{} :CodeEntry
+        |reset-entries! $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -765,8 +750,7 @@
                           |j $ %{} :Expr (:at 1607086534762) (:by |yeKFqj7rX)
                             :data $ {}
                               |T $ %{} :Leaf (:at 1607086535198) (:by |yeKFqj7rX) (:text |{})
-          :doc |
-        |show-memory-usages $ %{} :CodeEntry
+        |show-memory-usages $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1594745396086) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1594745396086) (:by |yeKFqj7rX) (:text |defn)
@@ -777,8 +761,7 @@
                 :data $ {}
                   |T $ %{} :Leaf (:at 1608007847969) (:by |yeKFqj7rX) (:text |;)
                   |j $ %{} :Leaf (:at 1608007859107) (:by |yeKFqj7rX) (:text "|\"not ready for nim")
-          :doc |
-        |show-summary $ %{} :CodeEntry
+        |show-summary $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -968,8 +951,7 @@
                                           |T $ %{} :Leaf (:at 1613140071803) (:by |yeKFqj7rX) (:text |dissoc)
                                           |j $ %{} :Leaf (:at 1613140071803) (:by |yeKFqj7rX) (:text |record)
                                           |r $ %{} :Leaf (:at 1613140071803) (:by |yeKFqj7rX) (:text |:value)
-          :doc |
-        |user-scripts $ %{} :CodeEntry
+        |user-scripts $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -1100,8 +1082,7 @@
                 :data $ {}
                   |T $ %{} :Leaf (:at 1594315342284) (:by |yeKFqj7rX) (:text |identity)
                   |j $ %{} :Leaf (:at 1594444305248) (:by |yeKFqj7rX) (:text |@*states)
-          :doc |
-        |write-record! $ %{} :CodeEntry
+        |write-record! $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -1302,8 +1283,7 @@
                                                     :data $ {}
                                                       |T $ %{} :Leaf (:at 1594314624246) (:by |yeKFqj7rX) (:text |:hit-times)
                                                       |j $ %{} :Leaf (:at 1594314624246) (:by |yeKFqj7rX) (:text |0)
-          :doc |
-      :ns $ %{} :CodeEntry
+      :ns $ %{} :CodeEntry (:doc |)
         :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
           :data $ {}
             |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |ns)
@@ -1328,10 +1308,9 @@
                     |T $ %{} :Leaf (:at 1650616623418) (:by |yeKFqj7rX) (:text |memof.once)
                     |b $ %{} :Leaf (:at 1650616629116) (:by |yeKFqj7rX) (:text |:as)
                     |h $ %{} :Leaf (:at 1650616627185) (:by |yeKFqj7rX) (:text |once)
-        :doc |
-    |memof.main $ {}
+    |memof.main $ %{} :FileEntry
       :defs $ {}
-        |*states $ %{} :CodeEntry
+        |*states $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1593964887828) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1606902761512) (:by |yeKFqj7rX) (:text |defatom)
@@ -1342,8 +1321,7 @@
                   |j $ %{} :Expr (:at 1593964923088) (:by |yeKFqj7rX)
                     :data $ {}
                       |T $ %{} :Leaf (:at 1593964925204) (:by |yeKFqj7rX) (:text |{})
-          :doc |
-        |main! $ %{} :CodeEntry
+        |main! $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1534483214794) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1534483214794) (:by |yeKFqj7rX) (:text |defn)
@@ -1364,8 +1342,7 @@
               |y $ %{} :Expr (:at 1607085881048) (:by |yeKFqj7rX)
                 :data $ {}
                   |T $ %{} :Leaf (:at 1607085884242) (:by |yeKFqj7rX) (:text |run-tests)
-          :doc |
-        |reload! $ %{} :CodeEntry
+        |reload! $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1534483216569) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1534483216569) (:by |yeKFqj7rX) (:text |defn)
@@ -1382,8 +1359,7 @@
               |xD $ %{} :Expr (:at 1608008502978) (:by |yeKFqj7rX)
                 :data $ {}
                   |T $ %{} :Leaf (:at 1608008504259) (:by |yeKFqj7rX) (:text |run-tests)
-          :doc |
-      :ns $ %{} :CodeEntry
+      :ns $ %{} :CodeEntry (:doc |)
         :code $ %{} :Expr (:at 1534483212338) (:by |yeKFqj7rX)
           :data $ {}
             |T $ %{} :Leaf (:at 1534483212338) (:by |yeKFqj7rX) (:text |ns)
@@ -1415,11 +1391,9 @@
                       :data $ {}
                         |T $ %{} :Leaf (:at 1608008913696) (:by |yeKFqj7rX) (:text |[])
                         |j $ %{} :Leaf (:at 1610081798047) (:by |yeKFqj7rX) (:text |reset-calling-caches!)
-        :doc |
-    |memof.once $ {}
-      :configs $ {}
+    |memof.once $ %{} :FileEntry
       :defs $ {}
-        |*keyed-call-caches $ %{} :CodeEntry
+        |*keyed-call-caches $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650616415513) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650616417980) (:by |yeKFqj7rX) (:text |defatom)
@@ -1427,8 +1401,7 @@
               |h $ %{} :Expr (:at 1650616415513) (:by |yeKFqj7rX)
                 :data $ {}
                   |T $ %{} :Leaf (:at 1650616419613) (:by |yeKFqj7rX) (:text |{})
-          :doc |
-        |*once-caches $ %{} :CodeEntry
+        |*once-caches $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650966182707) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650966186733) (:by |yeKFqj7rX) (:text |defatom)
@@ -1436,8 +1409,7 @@
               |h $ %{} :Expr (:at 1650966182707) (:by |yeKFqj7rX)
                 :data $ {}
                   |T $ %{} :Leaf (:at 1650966188127) (:by |yeKFqj7rX) (:text |{})
-          :doc |
-        |*singleton-call-caches $ %{} :CodeEntry
+        |*singleton-call-caches $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650615650803) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650615652172) (:by |yeKFqj7rX) (:text |defatom)
@@ -1445,8 +1417,7 @@
               |h $ %{} :Expr (:at 1650615650803) (:by |yeKFqj7rX)
                 :data $ {}
                   |T $ %{} :Leaf (:at 1650615653628) (:by |yeKFqj7rX) (:text |{})
-          :doc |
-        |memof1-as $ %{} :CodeEntry
+        |memof1-as $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650966154846) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650966224141) (:by |yeKFqj7rX) (:text |defmacro)
@@ -1512,8 +1483,7 @@
                                       |l $ %{} :Leaf (:at 1650966306784) (:by |yeKFqj7rX) (:text |~k)
                                       |o $ %{} :Leaf (:at 1650966432776) (:by |yeKFqj7rX) (:text |~result)
                                   |b $ %{} :Leaf (:at 1650966436335) (:by |yeKFqj7rX) (:text |~result)
-          :doc |
-        |memof1-call $ %{} :CodeEntry
+        |memof1-call $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650615564143) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650616062848) (:by |yeKFqj7rX) (:text |defn)
@@ -1617,8 +1587,7 @@
                                       |h $ %{} :Leaf (:at 1691526538175) (:by |yeKFqj7rX) (:text |args)
                                       |l $ %{} :Leaf (:at 1691526538175) (:by |yeKFqj7rX) (:text |ret)
                               |l $ %{} :Leaf (:at 1691526538175) (:by |yeKFqj7rX) (:text |ret)
-          :doc |
-        |memof1-call-by $ %{} :CodeEntry
+        |memof1-call-by $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650616133179) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650616133179) (:by |yeKFqj7rX) (:text |defn)
@@ -1782,8 +1751,7 @@
                                       |b $ %{} :Leaf (:at 1650616134462) (:by |yeKFqj7rX) (:text |args)
                                       |h $ %{} :Leaf (:at 1650616134462) (:by |yeKFqj7rX) (:text |ret)
                               |l $ %{} :Leaf (:at 1650616134462) (:by |yeKFqj7rX) (:text |ret)
-          :doc |
-        |reset-memof1-caches! $ %{} :CodeEntry
+        |reset-memof1-caches! $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650619650968) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650619650968) (:by |yeKFqj7rX) (:text |defn)
@@ -1811,24 +1779,20 @@
                   |h $ %{} :Expr (:at 1650966842469) (:by |yeKFqj7rX)
                     :data $ {}
                       |T $ %{} :Leaf (:at 1650966842803) (:by |yeKFqj7rX) (:text |{})
-          :doc |
-      :ns $ %{} :CodeEntry
+      :ns $ %{} :CodeEntry (:doc |)
         :code $ %{} :Expr (:at 1650615541989) (:by |yeKFqj7rX)
           :data $ {}
             |T $ %{} :Leaf (:at 1650615541989) (:by |yeKFqj7rX) (:text |ns)
             |b $ %{} :Leaf (:at 1650615541989) (:by |yeKFqj7rX) (:text |memof.once)
-        :doc |
-    |memof.test $ {}
-      :configs $ {}
+    |memof.test $ %{} :FileEntry
       :defs $ {}
-        |*call-count $ %{} :CodeEntry
+        |*call-count $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650622762927) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650622764519) (:by |yeKFqj7rX) (:text |defatom)
               |b $ %{} :Leaf (:at 1650622762927) (:by |yeKFqj7rX) (:text |*call-count)
               |h $ %{} :Leaf (:at 1650622765619) (:by |yeKFqj7rX) (:text |0)
-          :doc |
-        |*states $ %{} :CodeEntry
+        |*states $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1607086104539) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1607086106571) (:by |yeKFqj7rX) (:text |defatom)
@@ -1836,8 +1800,7 @@
               |r $ %{} :Expr (:at 1607086104539) (:by |yeKFqj7rX)
                 :data $ {}
                   |T $ %{} :Leaf (:at 1607086108323) (:by |yeKFqj7rX) (:text |{})
-          :doc |
-        |add3 $ %{} :CodeEntry
+        |add3 $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650617235826) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650617237260) (:by |yeKFqj7rX) (:text |defn)
@@ -1857,8 +1820,7 @@
                   |b $ %{} :Leaf (:at 1650617255619) (:by |yeKFqj7rX) (:text |a)
                   |h $ %{} :Leaf (:at 1650617256132) (:by |yeKFqj7rX) (:text |b)
                   |l $ %{} :Leaf (:at 1650617256544) (:by |yeKFqj7rX) (:text |c)
-          :doc |
-        |add3-key $ %{} :CodeEntry
+        |add3-key $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650619386332) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650619388738) (:by |yeKFqj7rX) (:text |defn)
@@ -1879,8 +1841,7 @@
                   |b $ %{} :Leaf (:at 1650619395564) (:by |yeKFqj7rX) (:text |a)
                   |h $ %{} :Leaf (:at 1650619395855) (:by |yeKFqj7rX) (:text |b)
                   |l $ %{} :Leaf (:at 1650619396424) (:by |yeKFqj7rX) (:text |c)
-          :doc |
-        |run-tests $ %{} :CodeEntry
+        |run-tests $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1607085848141) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1607085848141) (:by |yeKFqj7rX) (:text |defn)
@@ -1913,8 +1874,7 @@
               |zP $ %{} :Expr (:at 1650966456050) (:by |yeKFqj7rX)
                 :data $ {}
                   |T $ %{} :Leaf (:at 1650966459401) (:by |yeKFqj7rX) (:text |test-memof1-as)
-          :doc |
-        |test-gc $ %{} :CodeEntry
+        |test-gc $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1594477902161) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1594478073953) (:by |yeKFqj7rX) (:text |deftest)
@@ -2031,8 +1991,7 @@
                                       |T $ %{} :Leaf (:at 1594478595678) (:by |yeKFqj7rX) (:text |[])
                                       |j $ %{} :Leaf (:at 1594478595678) (:by |yeKFqj7rX) (:text |1)
                                       |r $ %{} :Leaf (:at 1594478595678) (:by |yeKFqj7rX) (:text |2)
-          :doc |
-        |test-memof-call $ %{} :CodeEntry
+        |test-memof-call $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1608008415621) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1608008427179) (:by |yeKFqj7rX) (:text |deftest)
@@ -2081,8 +2040,7 @@
                   |y $ %{} :Expr (:at 1608091664993) (:by |yeKFqj7rX)
                     :data $ {}
                       |T $ %{} :Leaf (:at 1608091669535) (:by |yeKFqj7rX) (:text |reset-calling-caches!)
-          :doc |
-        |test-memof1-as $ %{} :CodeEntry
+        |test-memof1-as $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650966460076) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650966495358) (:by |yeKFqj7rX) (:text |deftest)
@@ -2152,8 +2110,7 @@
                           |T $ %{} :Leaf (:at 1650966552900) (:by |yeKFqj7rX) (:text |=)
                           |b $ %{} :Leaf (:at 1650966552900) (:by |yeKFqj7rX) (:text |1)
                           |h $ %{} :Leaf (:at 1650966552900) (:by |yeKFqj7rX) (:text |@*call-count)
-          :doc |
-        |test-memof1-call $ %{} :CodeEntry
+        |test-memof1-call $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650617061060) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650617062450) (:by |yeKFqj7rX) (:text |deftest)
@@ -2193,8 +2150,7 @@
                   |q $ %{} :Expr (:at 1650617063546) (:by |yeKFqj7rX)
                     :data $ {}
                       |T $ %{} :Leaf (:at 1650619687574) (:by |yeKFqj7rX) (:text |once/reset-memof1-caches!)
-          :doc |
-        |test-memof1-call-by $ %{} :CodeEntry
+        |test-memof1-call-by $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650619370844) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650619377318) (:by |yeKFqj7rX) (:text |deftest)
@@ -2308,8 +2264,7 @@
                   |q $ %{} :Expr (:at 1650619695308) (:by |yeKFqj7rX)
                     :data $ {}
                       |T $ %{} :Leaf (:at 1650619695621) (:by |yeKFqj7rX) (:text |once/reset-memof1-caches!)
-          :doc |
-        |test-reset $ %{} :CodeEntry
+        |test-reset $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1600167721621) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1600167728836) (:by |yeKFqj7rX) (:text |deftest)
@@ -2396,8 +2351,7 @@
                                         :data $ {}
                                           |D $ %{} :Leaf (:at 1607086468642) (:by |yeKFqj7rX) (:text |deref)
                                           |T $ %{} :Leaf (:at 1607086467299) (:by |yeKFqj7rX) (:text |*states)
-          :doc |
-        |test-write $ %{} :CodeEntry
+        |test-write $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1594476836193) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1594476841594) (:by |yeKFqj7rX) (:text |deftest)
@@ -2557,8 +2511,7 @@
                     :data $ {}
                       |T $ %{} :Leaf (:at 1608091685185) (:by |yeKFqj7rX) (:text |memof/new-loop!)
                       |j $ %{} :Leaf (:at 1608091690147) (:by |yeKFqj7rX) (:text |*states)
-          :doc |
-      :ns $ %{} :CodeEntry
+      :ns $ %{} :CodeEntry (:doc |)
         :code $ %{} :Expr (:at 1594475851792) (:by |yeKFqj7rX)
           :data $ {}
             |T $ %{} :Leaf (:at 1594475851792) (:by |yeKFqj7rX) (:text |ns)
@@ -2610,13 +2563,12 @@
                     |T $ %{} :Leaf (:at 1650617079091) (:by |yeKFqj7rX) (:text |memof.once)
                     |b $ %{} :Leaf (:at 1650617082186) (:by |yeKFqj7rX) (:text |:as)
                     |h $ %{} :Leaf (:at 1650617083437) (:by |yeKFqj7rX) (:text |once)
-        :doc |
   :ir $ {} (:package |memof)
     :files $ {}
       |memof.alias $ {}
         :configs $ {}
         :defs $ {}
-          |*memof-call-states $ %{} :CodeEntry
+          |*memof-call-states $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1608008325323) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1608008328412) (:by |yeKFqj7rX) (:text |defatom)
@@ -2627,8 +2579,7 @@
                     |j $ %{} :Expr (:at 1608008346000) (:by |yeKFqj7rX)
                       :data $ {}
                         |T $ %{} :Leaf (:at 1608008346000) (:by |yeKFqj7rX) (:text |{})
-            :doc |
-          |memof-call $ %{} :CodeEntry
+          |memof-call $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1608008121307) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1608008121307) (:by |yeKFqj7rX) (:text |defn)
@@ -2677,8 +2628,7 @@
                                 |r $ %{} :Leaf (:at 1608008367381) (:by |yeKFqj7rX) (:text |args)
                                 |v $ %{} :Leaf (:at 1608008392241) (:by |yeKFqj7rX) (:text |result)
                             |v $ %{} :Leaf (:at 1608008395750) (:by |yeKFqj7rX) (:text |result)
-            :doc |
-          |reset-calling-caches! $ %{} :CodeEntry
+          |reset-calling-caches! $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1608008805393) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1608008807418) (:by |yeKFqj7rX) (:text |defn)
@@ -2689,8 +2639,7 @@
                   :data $ {}
                     |T $ %{} :Leaf (:at 1608008852708) (:by |yeKFqj7rX) (:text |memof/reset-entries!)
                     |j $ %{} :Leaf (:at 1608008857814) (:by |yeKFqj7rX) (:text |*memof-call-states)
-            :doc |
-          |tick-calling-loop! $ %{} :CodeEntry
+          |tick-calling-loop! $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1608090797792) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1608090797792) (:by |yeKFqj7rX) (:text |defn)
@@ -2701,8 +2650,7 @@
                   :data $ {}
                     |T $ %{} :Leaf (:at 1608090827250) (:by |yeKFqj7rX) (:text |memof/new-loop!)
                     |j $ %{} :Leaf (:at 1608090831878) (:by |yeKFqj7rX) (:text |*memof-call-states)
-            :doc |
-        :ns $ %{} :CodeEntry
+        :ns $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1608008712000) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1608008712000) (:by |yeKFqj7rX) (:text |ns)
@@ -2716,11 +2664,10 @@
                       |j $ %{} :Leaf (:at 1608008747463) (:by |yeKFqj7rX) (:text |memof.core)
                       |r $ %{} :Leaf (:at 1608008749455) (:by |yeKFqj7rX) (:text |:as)
                       |v $ %{} :Leaf (:at 1608008752272) (:by |yeKFqj7rX) (:text |memof)
-          :doc |
       |memof.core $ {}
         :configs $ {}
         :defs $ {}
-          |*removed-used $ %{} :CodeEntry
+          |*removed-used $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1607086050653) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1607086052485) (:by |yeKFqj7rX) (:text |defatom)
@@ -2728,8 +2675,7 @@
                 |r $ %{} :Expr (:at 1607086050653) (:by |yeKFqj7rX)
                   :data $ {}
                     |T $ %{} :Leaf (:at 1607086053712) (:by |yeKFqj7rX) (:text |[])
-            :doc |
-          |*verbose? $ %{} :CodeEntry
+          |*verbose? $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1596124818505) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1608007967838) (:by |yeKFqj7rX) (:text |defatom)
@@ -2743,8 +2689,7 @@
                         |T $ %{} :Leaf (:at 1607081027983) (:by |yeKFqj7rX) (:text |get-env)
                         |j $ %{} :Leaf (:at 1607081032022) (:by |yeKFqj7rX) (:text "|\"memofVerbose")
                         |n $ %{} :Leaf (:at 1650967099514) (:by |yeKFqj7rX) (:text "|\"false")
-            :doc |
-          |access-record $ %{} :CodeEntry
+          |access-record $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -2886,8 +2831,7 @@
                                     |q $ %{} :Leaf (:at 1594401830478) (:by |yeKFqj7rX) (:text |inc)
                                 |r $ %{} :Leaf (:at 1594401696633) (:by |yeKFqj7rX) (:text |nil)
                         |v $ %{} :Leaf (:at 1594401698746) (:by |yeKFqj7rX) (:text |nil)
-            :doc |
-          |lilac-gc-options $ %{} :CodeEntry
+          |lilac-gc-options $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1594054437500) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1594054437500) (:by |yeKFqj7rX) (:text |def)
@@ -2924,8 +2868,7 @@
                               :data $ {}
                                 |T $ %{} :Leaf (:at 1594054504312) (:by |yeKFqj7rX) (:text |:all-optional?)
                                 |j $ %{} :Leaf (:at 1594054504936) (:by |yeKFqj7rX) (:text |true)
-            :doc |
-          |modify-gc-options! $ %{} :CodeEntry
+          |modify-gc-options! $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1594536118731) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1594536118731) (:by |yeKFqj7rX) (:text |defn)
@@ -2956,8 +2899,7 @@
                             |T $ %{} :Leaf (:at 1594536165160) (:by |yeKFqj7rX) (:text |merge)
                             |j $ %{} :Leaf (:at 1594536169962) (:by |yeKFqj7rX) (:text |x0)
                             |r $ %{} :Leaf (:at 1594536168539) (:by |yeKFqj7rX) (:text |options)
-            :doc |
-          |new-loop! $ %{} :CodeEntry
+          |new-loop! $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -3028,8 +2970,7 @@
                           :data $ {}
                             |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |perform-gc!)
                             |j $ %{} :Leaf (:at 1593965098681) (:by |yeKFqj7rX) (:text |*states)
-            :doc |
-          |new-states $ %{} :CodeEntry
+          |new-states $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1593964836124) (:by |yeKFqj7rX) (:text |defn)
@@ -3097,8 +3038,7 @@
                           :data $ {}
                             |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |:gc)
                             |j $ %{} :Leaf (:at 1593964938071) (:by |yeKFqj7rX) (:text |options)
-            :doc |
-          |perform-gc! $ %{} :CodeEntry
+          |perform-gc! $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -3343,8 +3283,7 @@
                         |T $ %{} :Expr (:at 1594745519019) (:by |yeKFqj7rX)
                           :data $ {}
                             |T $ %{} :Leaf (:at 1594745518666) (:by |yeKFqj7rX) (:text |show-memory-usages)
-            :doc |
-          |reset-entries! $ %{} :CodeEntry
+          |reset-entries! $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -3374,8 +3313,7 @@
                             |j $ %{} :Expr (:at 1607086534762) (:by |yeKFqj7rX)
                               :data $ {}
                                 |T $ %{} :Leaf (:at 1607086535198) (:by |yeKFqj7rX) (:text |{})
-            :doc |
-          |show-memory-usages $ %{} :CodeEntry
+          |show-memory-usages $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1594745396086) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1594745396086) (:by |yeKFqj7rX) (:text |defn)
@@ -3386,8 +3324,7 @@
                   :data $ {}
                     |T $ %{} :Leaf (:at 1608007847969) (:by |yeKFqj7rX) (:text |;)
                     |j $ %{} :Leaf (:at 1608007859107) (:by |yeKFqj7rX) (:text "|\"not ready for nim")
-            :doc |
-          |show-summary $ %{} :CodeEntry
+          |show-summary $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -3577,8 +3514,7 @@
                                             |T $ %{} :Leaf (:at 1613140071803) (:by |yeKFqj7rX) (:text |dissoc)
                                             |j $ %{} :Leaf (:at 1613140071803) (:by |yeKFqj7rX) (:text |record)
                                             |r $ %{} :Leaf (:at 1613140071803) (:by |yeKFqj7rX) (:text |:value)
-            :doc |
-          |user-scripts $ %{} :CodeEntry
+          |user-scripts $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -3709,8 +3645,7 @@
                   :data $ {}
                     |T $ %{} :Leaf (:at 1594315342284) (:by |yeKFqj7rX) (:text |identity)
                     |j $ %{} :Leaf (:at 1594444305248) (:by |yeKFqj7rX) (:text |@*states)
-            :doc |
-          |write-record! $ %{} :CodeEntry
+          |write-record! $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |defn)
@@ -3911,8 +3846,7 @@
                                                       :data $ {}
                                                         |T $ %{} :Leaf (:at 1594314624246) (:by |yeKFqj7rX) (:text |:hit-times)
                                                         |j $ %{} :Leaf (:at 1594314624246) (:by |yeKFqj7rX) (:text |0)
-            :doc |
-        :ns $ %{} :CodeEntry
+        :ns $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1592323714536) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1592323714536) (:by |yeKFqj7rX) (:text |ns)
@@ -3937,10 +3871,9 @@
                       |T $ %{} :Leaf (:at 1650616623418) (:by |yeKFqj7rX) (:text |memof.once)
                       |b $ %{} :Leaf (:at 1650616629116) (:by |yeKFqj7rX) (:text |:as)
                       |h $ %{} :Leaf (:at 1650616627185) (:by |yeKFqj7rX) (:text |once)
-          :doc |
       |memof.main $ {}
         :defs $ {}
-          |*states $ %{} :CodeEntry
+          |*states $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1593964887828) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1606902761512) (:by |yeKFqj7rX) (:text |defatom)
@@ -3951,8 +3884,7 @@
                     |j $ %{} :Expr (:at 1593964923088) (:by |yeKFqj7rX)
                       :data $ {}
                         |T $ %{} :Leaf (:at 1593964925204) (:by |yeKFqj7rX) (:text |{})
-            :doc |
-          |main! $ %{} :CodeEntry
+          |main! $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1534483214794) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1534483214794) (:by |yeKFqj7rX) (:text |defn)
@@ -3973,8 +3905,7 @@
                 |y $ %{} :Expr (:at 1607085881048) (:by |yeKFqj7rX)
                   :data $ {}
                     |T $ %{} :Leaf (:at 1607085884242) (:by |yeKFqj7rX) (:text |run-tests)
-            :doc |
-          |reload! $ %{} :CodeEntry
+          |reload! $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1534483216569) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1534483216569) (:by |yeKFqj7rX) (:text |defn)
@@ -3991,8 +3922,7 @@
                 |xD $ %{} :Expr (:at 1608008502978) (:by |yeKFqj7rX)
                   :data $ {}
                     |T $ %{} :Leaf (:at 1608008504259) (:by |yeKFqj7rX) (:text |run-tests)
-            :doc |
-        :ns $ %{} :CodeEntry
+        :ns $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1534483212338) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1534483212338) (:by |yeKFqj7rX) (:text |ns)
@@ -4024,11 +3954,10 @@
                         :data $ {}
                           |T $ %{} :Leaf (:at 1608008913696) (:by |yeKFqj7rX) (:text |[])
                           |j $ %{} :Leaf (:at 1610081798047) (:by |yeKFqj7rX) (:text |reset-calling-caches!)
-          :doc |
       |memof.once $ {}
         :configs $ {}
         :defs $ {}
-          |*keyed-call-caches $ %{} :CodeEntry
+          |*keyed-call-caches $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650616415513) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650616417980) (:by |yeKFqj7rX) (:text |defatom)
@@ -4036,8 +3965,7 @@
                 |h $ %{} :Expr (:at 1650616415513) (:by |yeKFqj7rX)
                   :data $ {}
                     |T $ %{} :Leaf (:at 1650616419613) (:by |yeKFqj7rX) (:text |{})
-            :doc |
-          |*once-caches $ %{} :CodeEntry
+          |*once-caches $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650966182707) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650966186733) (:by |yeKFqj7rX) (:text |defatom)
@@ -4045,8 +3973,7 @@
                 |h $ %{} :Expr (:at 1650966182707) (:by |yeKFqj7rX)
                   :data $ {}
                     |T $ %{} :Leaf (:at 1650966188127) (:by |yeKFqj7rX) (:text |{})
-            :doc |
-          |*singleton-call-caches $ %{} :CodeEntry
+          |*singleton-call-caches $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650615650803) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650615652172) (:by |yeKFqj7rX) (:text |defatom)
@@ -4054,8 +3981,7 @@
                 |h $ %{} :Expr (:at 1650615650803) (:by |yeKFqj7rX)
                   :data $ {}
                     |T $ %{} :Leaf (:at 1650615653628) (:by |yeKFqj7rX) (:text |{})
-            :doc |
-          |memof1-as $ %{} :CodeEntry
+          |memof1-as $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650966154846) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650966224141) (:by |yeKFqj7rX) (:text |defmacro)
@@ -4121,8 +4047,7 @@
                                         |l $ %{} :Leaf (:at 1650966306784) (:by |yeKFqj7rX) (:text |~k)
                                         |o $ %{} :Leaf (:at 1650966432776) (:by |yeKFqj7rX) (:text |~result)
                                     |b $ %{} :Leaf (:at 1650966436335) (:by |yeKFqj7rX) (:text |~result)
-            :doc |
-          |memof1-call $ %{} :CodeEntry
+          |memof1-call $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650615564143) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650616062848) (:by |yeKFqj7rX) (:text |defn)
@@ -4226,8 +4151,7 @@
                                         |h $ %{} :Leaf (:at 1691526538175) (:by |yeKFqj7rX) (:text |args)
                                         |l $ %{} :Leaf (:at 1691526538175) (:by |yeKFqj7rX) (:text |ret)
                                 |l $ %{} :Leaf (:at 1691526538175) (:by |yeKFqj7rX) (:text |ret)
-            :doc |
-          |memof1-call-by $ %{} :CodeEntry
+          |memof1-call-by $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650616133179) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650616133179) (:by |yeKFqj7rX) (:text |defn)
@@ -4391,8 +4315,7 @@
                                         |b $ %{} :Leaf (:at 1650616134462) (:by |yeKFqj7rX) (:text |args)
                                         |h $ %{} :Leaf (:at 1650616134462) (:by |yeKFqj7rX) (:text |ret)
                                 |l $ %{} :Leaf (:at 1650616134462) (:by |yeKFqj7rX) (:text |ret)
-            :doc |
-          |reset-memof1-caches! $ %{} :CodeEntry
+          |reset-memof1-caches! $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650619650968) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650619650968) (:by |yeKFqj7rX) (:text |defn)
@@ -4420,24 +4343,21 @@
                     |h $ %{} :Expr (:at 1650966842469) (:by |yeKFqj7rX)
                       :data $ {}
                         |T $ %{} :Leaf (:at 1650966842803) (:by |yeKFqj7rX) (:text |{})
-            :doc |
-        :ns $ %{} :CodeEntry
+        :ns $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1650615541989) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1650615541989) (:by |yeKFqj7rX) (:text |ns)
               |b $ %{} :Leaf (:at 1650615541989) (:by |yeKFqj7rX) (:text |memof.once)
-          :doc |
       |memof.test $ {}
         :configs $ {}
         :defs $ {}
-          |*call-count $ %{} :CodeEntry
+          |*call-count $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650622762927) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650622764519) (:by |yeKFqj7rX) (:text |defatom)
                 |b $ %{} :Leaf (:at 1650622762927) (:by |yeKFqj7rX) (:text |*call-count)
                 |h $ %{} :Leaf (:at 1650622765619) (:by |yeKFqj7rX) (:text |0)
-            :doc |
-          |*states $ %{} :CodeEntry
+          |*states $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1607086104539) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1607086106571) (:by |yeKFqj7rX) (:text |defatom)
@@ -4445,8 +4365,7 @@
                 |r $ %{} :Expr (:at 1607086104539) (:by |yeKFqj7rX)
                   :data $ {}
                     |T $ %{} :Leaf (:at 1607086108323) (:by |yeKFqj7rX) (:text |{})
-            :doc |
-          |add3 $ %{} :CodeEntry
+          |add3 $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650617235826) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650617237260) (:by |yeKFqj7rX) (:text |defn)
@@ -4466,8 +4385,7 @@
                     |b $ %{} :Leaf (:at 1650617255619) (:by |yeKFqj7rX) (:text |a)
                     |h $ %{} :Leaf (:at 1650617256132) (:by |yeKFqj7rX) (:text |b)
                     |l $ %{} :Leaf (:at 1650617256544) (:by |yeKFqj7rX) (:text |c)
-            :doc |
-          |add3-key $ %{} :CodeEntry
+          |add3-key $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650619386332) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650619388738) (:by |yeKFqj7rX) (:text |defn)
@@ -4488,8 +4406,7 @@
                     |b $ %{} :Leaf (:at 1650619395564) (:by |yeKFqj7rX) (:text |a)
                     |h $ %{} :Leaf (:at 1650619395855) (:by |yeKFqj7rX) (:text |b)
                     |l $ %{} :Leaf (:at 1650619396424) (:by |yeKFqj7rX) (:text |c)
-            :doc |
-          |run-tests $ %{} :CodeEntry
+          |run-tests $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1607085848141) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1607085848141) (:by |yeKFqj7rX) (:text |defn)
@@ -4522,8 +4439,7 @@
                 |zP $ %{} :Expr (:at 1650966456050) (:by |yeKFqj7rX)
                   :data $ {}
                     |T $ %{} :Leaf (:at 1650966459401) (:by |yeKFqj7rX) (:text |test-memof1-as)
-            :doc |
-          |test-gc $ %{} :CodeEntry
+          |test-gc $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1594477902161) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1594478073953) (:by |yeKFqj7rX) (:text |deftest)
@@ -4640,8 +4556,7 @@
                                         |T $ %{} :Leaf (:at 1594478595678) (:by |yeKFqj7rX) (:text |[])
                                         |j $ %{} :Leaf (:at 1594478595678) (:by |yeKFqj7rX) (:text |1)
                                         |r $ %{} :Leaf (:at 1594478595678) (:by |yeKFqj7rX) (:text |2)
-            :doc |
-          |test-memof-call $ %{} :CodeEntry
+          |test-memof-call $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1608008415621) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1608008427179) (:by |yeKFqj7rX) (:text |deftest)
@@ -4690,8 +4605,7 @@
                     |y $ %{} :Expr (:at 1608091664993) (:by |yeKFqj7rX)
                       :data $ {}
                         |T $ %{} :Leaf (:at 1608091669535) (:by |yeKFqj7rX) (:text |reset-calling-caches!)
-            :doc |
-          |test-memof1-as $ %{} :CodeEntry
+          |test-memof1-as $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650966460076) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650966495358) (:by |yeKFqj7rX) (:text |deftest)
@@ -4761,8 +4675,7 @@
                             |T $ %{} :Leaf (:at 1650966552900) (:by |yeKFqj7rX) (:text |=)
                             |b $ %{} :Leaf (:at 1650966552900) (:by |yeKFqj7rX) (:text |1)
                             |h $ %{} :Leaf (:at 1650966552900) (:by |yeKFqj7rX) (:text |@*call-count)
-            :doc |
-          |test-memof1-call $ %{} :CodeEntry
+          |test-memof1-call $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650617061060) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650617062450) (:by |yeKFqj7rX) (:text |deftest)
@@ -4802,8 +4715,7 @@
                     |q $ %{} :Expr (:at 1650617063546) (:by |yeKFqj7rX)
                       :data $ {}
                         |T $ %{} :Leaf (:at 1650619687574) (:by |yeKFqj7rX) (:text |once/reset-memof1-caches!)
-            :doc |
-          |test-memof1-call-by $ %{} :CodeEntry
+          |test-memof1-call-by $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1650619370844) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1650619377318) (:by |yeKFqj7rX) (:text |deftest)
@@ -4917,8 +4829,7 @@
                     |q $ %{} :Expr (:at 1650619695308) (:by |yeKFqj7rX)
                       :data $ {}
                         |T $ %{} :Leaf (:at 1650619695621) (:by |yeKFqj7rX) (:text |once/reset-memof1-caches!)
-            :doc |
-          |test-reset $ %{} :CodeEntry
+          |test-reset $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1600167721621) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1600167728836) (:by |yeKFqj7rX) (:text |deftest)
@@ -5005,8 +4916,7 @@
                                           :data $ {}
                                             |D $ %{} :Leaf (:at 1607086468642) (:by |yeKFqj7rX) (:text |deref)
                                             |T $ %{} :Leaf (:at 1607086467299) (:by |yeKFqj7rX) (:text |*states)
-            :doc |
-          |test-write $ %{} :CodeEntry
+          |test-write $ %{} :CodeEntry (:doc |)
             :code $ %{} :Expr (:at 1594476836193) (:by |yeKFqj7rX)
               :data $ {}
                 |T $ %{} :Leaf (:at 1594476841594) (:by |yeKFqj7rX) (:text |deftest)
@@ -5166,8 +5076,7 @@
                       :data $ {}
                         |T $ %{} :Leaf (:at 1608091685185) (:by |yeKFqj7rX) (:text |memof/new-loop!)
                         |j $ %{} :Leaf (:at 1608091690147) (:by |yeKFqj7rX) (:text |*states)
-            :doc |
-        :ns $ %{} :CodeEntry
+        :ns $ %{} :CodeEntry (:doc |)
           :code $ %{} :Expr (:at 1594475851792) (:by |yeKFqj7rX)
             :data $ {}
               |T $ %{} :Leaf (:at 1594475851792) (:by |yeKFqj7rX) (:text |ns)
@@ -5219,6 +5128,5 @@
                       |T $ %{} :Leaf (:at 1650617079091) (:by |yeKFqj7rX) (:text |memof.once)
                       |b $ %{} :Leaf (:at 1650617082186) (:by |yeKFqj7rX) (:text |:as)
                       |h $ %{} :Leaf (:at 1650617083437) (:by |yeKFqj7rX) (:text |once)
-          :doc |
   :users $ {}
     |yeKFqj7rX $ {} (:avatar nil) (:id |yeKFqj7rX) (:name |chen) (:nickname |chen) (:password |d41d8cd98f00b204e9800998ecf8427e) (:theme :star-trail)
