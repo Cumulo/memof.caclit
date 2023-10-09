@@ -1,6 +1,6 @@
 
 {} (:package |memof)
-  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.14)
+  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.15)
     :modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru
   :entries $ {}
   :files $ {}
@@ -27,6 +27,36 @@
       :ns $ %{} :CodeEntry (:doc |)
         :code $ quote
           ns memof.alias $ :require ([] memof.core :as memof)
+    |memof.anchor $ %{} :FileEntry
+      :defs $ {}
+        |%state-anchor $ %{} :CodeEntry (:doc |)
+          :code $ quote
+            defrecord! %state-anchor
+              :deref $ fn (self)
+                tag-match self $ 
+                  :anchor path
+                  &map:get @*anchor-states path
+              :set! $ fn (self v)
+                tag-match self $ 
+                  :anchor path
+                  swap! *anchor-states &map:assoc path v
+        |*anchor-states $ %{} :CodeEntry (:doc |)
+          :code $ quote
+            defatom *anchor-states $ {}
+        |anchor-state $ %{} :CodeEntry (:doc |)
+          :code $ quote
+            defn anchor-state (path) (%:: %state-anchor :anchor path)
+        |identity-path $ %{} :CodeEntry (:doc |)
+          :code $ quote
+            defmacro identity-path (quoted-code)
+              &let
+                s $ nth quoted-code 1
+                assert "\"expected a symbol" $ symbol? s
+                &let
+                  edn $ &extract-code-into-edn s
+                  str (:ns edn) "\" / " (:at-def edn) "\" / " $ :val edn
+      :ns $ %{} :CodeEntry (:doc |)
+        :code $ quote (ns memof.anchor)
     |memof.core $ %{} :FileEntry
       :defs $ {}
         |*removed-used $ %{} :CodeEntry (:doc |)
@@ -320,7 +350,18 @@
             defn add3-key (a b c) (swap! *call-count inc) (+ a b c)
         |run-tests $ %{} :CodeEntry (:doc |)
           :code $ quote
-            defn run-tests () (reset! *quit-on-failure? true) (test-gc) (test-reset) (test-write) (test-memof-call) (test-memof1-call) (test-memof1-call-by) (test-memof1-as)
+            defn run-tests () (reset! *quit-on-failure? true) (test-gc) (test-reset) (test-write) (test-memof-call) (test-memof1-call) (test-memof1-call-by) (test-memof1-as) (test-anchor)
+        |test-anchor $ %{} :CodeEntry (:doc |)
+          :code $ quote
+            defn test-anchor () $ testing "\"anchor states"
+              let
+                  *a $ anchor-state (identity-path 's0)
+                is $ = @*a nil
+                .set! *a 1
+                is $ = @*a 1
+              let
+                  *a $ anchor-state (identity-path 's0)
+                is $ = @*a 1
         |test-gc $ %{} :CodeEntry (:doc |)
           :code $ quote
             deftest test-gc $ let
@@ -412,3 +453,4 @@
             [] lilac.core :refer $ [] *in-dev? validate-lilac
             [] memof.alias :refer $ [] memof-call reset-calling-caches! tick-calling-loop!
             memof.once :as once
+            memof.anchor :refer $ identity-path anchor-state
