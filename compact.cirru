@@ -1,6 +1,6 @@
 
 {} (:package |memof)
-  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.15)
+  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.16)
     :modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru
   :entries $ {}
   :files $ {}
@@ -48,9 +48,13 @@
             defn anchor-state (path) (%:: %state-anchor :anchor path)
         |identity-path $ %{} :CodeEntry (:doc |)
           :code $ quote
-            defmacro identity-path (quoted-code)
+            defmacro identity-path (s0)
               &let
-                s $ nth quoted-code 1
+                s $ cond
+                    symbol? s0
+                    , s0
+                  (list? s0) (nth s0 1)
+                  true $ raise (str "\"expected symbol, got: " s0)
                 assert "\"expected a symbol" $ symbol? s
                 &let
                   edn $ &extract-code-into-edn s
@@ -355,13 +359,19 @@
           :code $ quote
             defn test-anchor () $ testing "\"anchor states"
               let
-                  *a $ anchor-state (identity-path 's0)
+                  *a $ anchor-state (identity-path s0)
                 is $ = @*a nil
                 .set! *a 1
                 is $ = @*a 1
               let
+                  *a $ anchor-state (identity-path s0)
+                is $ = @*a 1
+              let
                   *a $ anchor-state (identity-path 's0)
                 is $ = @*a 1
+              let
+                  *a $ anchor-state (identity-path s1)
+                is $ = @*a nil
         |test-gc $ %{} :CodeEntry (:doc |)
           :code $ quote
             deftest test-gc $ let

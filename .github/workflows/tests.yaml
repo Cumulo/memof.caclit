@@ -30,7 +30,7 @@ jobs:
         version: '0.8.5'
 
     - name: "test"
-      run: caps --ci && env=ci cr -1
+      run: caps --ci && cr -1
 
     - name: "test js"
       run: >
