@@ -34,6 +34,27 @@ A macro for caching a value of an expression directly with a key:
 memof1-as |key (+ 1 2)
 ```
 
+### Usage of `anchor-state`
+
+A tricky implementation like internal states for React hooks, providing:
+
+- `memof.anchor/anchor-state` function to pick internal state,
+- `memof.anchor/identity-path` macro to extra path from a symbol, in format of `<ns> / <def> / <sym>`
+
+for example:
+
+```cirru
+let
+    *a $ anchor-state (identity-path 's0)
+  is $ = @*a nil
+  .set! *a 1
+  is $ = @*a 1
+
+let
+    *a $ anchor-state (identity-path 's0)
+  is $ = @*a 1
+```
+
 ### Usage of `memof-call`
 
 Call with memoization caches, invalidated by LRU algorithm:
