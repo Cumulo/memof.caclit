@@ -1,32 +1,9 @@
 
 {} (:package |memof)
-  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.0.16)
+  :configs $ {} (:init-fn |memof.main/main!) (:reload-fn |memof.main/reload!) (:version |0.1.0)
     :modules $ [] |calcit-test/compact.cirru |lilac/compact.cirru
   :entries $ {}
   :files $ {}
-    |memof.alias $ %{} :FileEntry
-      :defs $ {}
-        |*memof-call-states $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defatom *memof-call-states $ memof/new-states ({})
-        |memof-call $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn memof-call (f & args)
-              &let
-                v $ memof/access-record *memof-call-states f args
-                if (some? v) v $ &let
-                  result $ f & args
-                  memof/write-record! *memof-call-states f args result
-                  , result
-        |reset-calling-caches! $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn reset-calling-caches! () $ memof/reset-entries! *memof-call-states
-        |tick-calling-loop! $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn tick-calling-loop! () $ memof/new-loop! *memof-call-states
-      :ns $ %{} :CodeEntry (:doc |)
-        :code $ quote
-          ns memof.alias $ :require ([] memof.core :as memof)
     |memof.anchor $ %{} :FileEntry
       :defs $ {}
         |%state-anchor $ %{} :CodeEntry (:doc |)
@@ -61,195 +38,6 @@
                   str (:ns edn) "\" / " (:at-def edn) "\" / " $ :val edn
       :ns $ %{} :CodeEntry (:doc |)
         :code $ quote (ns memof.anchor)
-    |memof.core $ %{} :FileEntry
-      :defs $ {}
-        |*removed-used $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defatom *removed-used $ []
-        |*verbose? $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defatom *verbose? $ = "\"true" (get-env "\"memofVerbose" "\"false")
-        |access-record $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn access-record (*states f params)
-              let
-                  entries $ :entries (deref *states)
-                  the-loop $ :loop (deref *states)
-                if (contains? entries f)
-                  if
-                    contains?
-                      :records $ get entries f
-                      , params
-                    do
-                      swap! *states update-in ([] :entries f)
-                        fn (f-info)
-                          -> f-info
-                            update-in ([] :records params)
-                              fn (record)
-                                -> record (assoc :last-hit-loop the-loop) (update :hit-times inc)
-                            update :hit-times inc
-                      get-in entries $ [] f :records params :value
-                    do
-                      swap! *states update-in ([] :entries f :missed-times) inc
-                      , nil
-                  , nil
-        |lilac-gc-options $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            def lilac-gc-options $ optional+
-              record+
-                {}
-                  :trigger-loop $ number+
-                  :elapse-loop $ number+
-                {} (:check-keys? true) (:all-optional? true)
-        |modify-gc-options! $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn modify-gc-options! (*states options) (dev-check options lilac-gc-options)
-              swap! *states update :gc $ fn (x0) (merge x0 options)
-        |new-loop! $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn new-loop! (*states)
-              assert "\"expects atom for *states" $ = :ref (type-of *states)
-              swap! *states update :loop inc
-              let
-                  loop-count $ :loop (deref *states)
-                  gc $ :gc (deref *states)
-                when
-                  = 0 $ .rem loop-count (:trigger-loop gc)
-                  perform-gc! *states
-        |new-states $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn new-states (gc-options) (dev-check gc-options lilac-gc-options)
-              let
-                  options $ merge
-                    {} (:trigger-loop 100) (:elapse-loop 200)
-                    , gc-options
-                when (deref *verbose?) (println "\"Initialized caches with options:" options) (show-memory-usages)
-                {} (:loop 0)
-                  :entries $ {}
-                  :gc options
-        |perform-gc! $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn perform-gc! (*states)
-              let
-                  states-0 $ deref *states
-                  gc $ :gc states-0
-                reset! *removed-used $ []
-                swap! *states update :entries $ fn (entries)
-                  map-kv entries $ fn (f entry)
-                    if
-                      empty? $ :records entry
-                      , nil $ [] f
-                        update entry :records $ fn (records)
-                          filter-not records $ fn (p2)
-                            let
-                                params $ first p2
-                                record $ last p2
-                              cond
-                                  &= 0 $ :hit-times record
-                                  , true
-                                (> (- (:loop states-0) (:last-hit-loop record)) (:elapse-loop gc))
-                                  do
-                                    swap! *removed-used conj $ :hit-times record
-                                    when (deref *verbose?)
-                                      println "\"[Memof verbose] removing record at loop" (:loop states-0) "\"--" f params $ dissoc record :value
-                                    , true
-                                true false
-                when
-                  not $ empty? (:entries states-0)
-                  println $ str "\"[Memof GC] Performed GC, entries from "
-                    count $ :entries states-0
-                    , "\" to "
-                      count $ :entries (deref *states)
-                  println "\" Removed counts" $ frequencies (deref *removed-used)
-                when (deref *verbose?) (show-memory-usages)
-        |reset-entries! $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn reset-entries! (*states) (println "\"[Memof] reset.")
-              swap! *states merge $ {} (:loop 0)
-                :entries $ {}
-        |show-memory-usages $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn show-memory-usages () $ ; "\"not ready for nim"
-        |show-summary $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn show-summary (*states)
-              let
-                  states $ if
-                    = :atom $ type-of *states
-                    do (println "\"[Memof warning] required dereferenced value in show-summary") (deref *states)
-                    do (; "\"just use data when it's not atom") *states
-                println $ str &newline "\"[Memof Summary] of size "
-                  count $ :entries states
-                  , "\". Currenly loop is " (:loop states) "\"."
-                &doseq
-                  pair $ to-pairs (:entries states)
-                  let
-                      f $ first pair
-                      entry $ last pair
-                      hit-times $ :hit-times entry
-                      missed-times $ :missed-times entry
-                    println "\" " f "\"hit:" hit-times "\"missed:" missed-times "\"hit-ratio:" $ if (&> hit-times 0)
-                      str
-                        round $ * 100
-                          / hit-times $ + missed-times hit-times
-                        , "\"%"
-                      , "\"0%"
-                    &doseq
-                      p2 $ :records entry
-                      let
-                          params $ first p2
-                          record $ last p2
-                        println "\"  " $ dissoc record :value
-        |user-scripts $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn user-scripts (*states)
-              def *states $ atom
-                new-states $ {} (:trigger-loop 4) (:elapse-loop 2)
-              defn f1 $ x
-              defn f2 $ x y
-              write-record! *states f1 ([] 1 2 3 4) 10
-              write-record! *states f1 ([] 1 2 3) 6
-              write-record! *states f2 ([] 1 2 3) 6
-              access-record *states f1 $ [] 1 2 3 4
-              access-record *states f1 $ [] 1 2 3
-              access-record *states f1 $ [] 1 2 'x
-              new-loop! *states
-              show-summary @*states
-              perform-gc! *states
-              identity @*states
-        |write-record! $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            defn write-record! (*states f params value)
-              let
-                  the-loop $ :loop (deref *states)
-                swap! *states update :entries $ fn (entries)
-                  let
-                      new-entries $ if (contains? entries f) entries
-                        assoc entries f $ {}
-                          :records $ {}
-                          :hit-times 0
-                          :missed-times 0
-                          :initial-loop the-loop
-                    update new-entries f $ fn (entry)
-                      if
-                        and
-                          contains?
-                            either (:recods entry) ({})
-                            , params
-                          = value $ get-in entry ([] :records params :value)
-                        do (println "\"[Memof Record] already exisits" params "\"for" f)
-                          -> entry
-                            update-in ([] :records params)
-                              fn (info)
-                                -> info (assoc :last-hit-loop the-loop) (update :hit-times inc)
-                            update :hit-times inc
-                        assoc-in entry ([] :records params)
-                          {} (:value value) (:initial-loop the-loop) (:last-hit-loop the-loop) (:hit-times 0)
-      :ns $ %{} :CodeEntry (:doc |)
-        :code $ quote
-          ns memof.core $ :require
-            lilac.core :refer $ dev-check record+ number+ optional+ *in-dev? validate-lilac
-            memof.once :as once
     |memof.main $ %{} :FileEntry
       :defs $ {}
         |*states $ %{} :CodeEntry (:doc |)
@@ -257,12 +45,10 @@
             defatom *states $ memof/new-states ({})
         |main! $ %{} :CodeEntry (:doc |)
           :code $ quote
-            defn main! () (println "\"Started.")
-              memof/show-summary $ deref *states
-              run-tests
+            defn main! () (println "\"Started.") (run-tests)
         |reload! $ %{} :CodeEntry (:doc |)
           :code $ quote
-            defn reload! () (reset-calling-caches!) (println "\"Reloaded!") (run-tests)
+            defn reload! () (println "\"Reloaded!") (run-tests)
       :ns $ %{} :CodeEntry (:doc |)
         :code $ quote
           ns memof.main $ :require ([] memof.core :as memof)
@@ -354,7 +140,7 @@
             defn add3-key (a b c) (swap! *call-count inc) (+ a b c)
         |run-tests $ %{} :CodeEntry (:doc |)
           :code $ quote
-            defn run-tests () (reset! *quit-on-failure? true) (test-gc) (test-reset) (test-write) (test-memof-call) (test-memof1-call) (test-memof1-call-by) (test-memof1-as) (test-anchor)
+            defn run-tests () (reset! *quit-on-failure? true) (test-memof1-call) (test-memof1-call-by) (test-memof1-as) (test-anchor)
         |test-anchor $ %{} :CodeEntry (:doc |)
           :code $ quote
             defn test-anchor () $ testing "\"anchor states"
@@ -372,29 +158,6 @@
               let
                   *a $ anchor-state (identity-path s1)
                 is $ = @*a nil
-        |test-gc $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            deftest test-gc $ let
-                f1 $ fn () nil
-              reset! *states $ memof/new-states ({})
-              memof/write-record! *states f1 ([] 1 2 3) 6
-              memof/write-record! *states f1 ([] 1 2) 6
-              testing "\"has entries" $ is
-                some? $ memof/access-record *states f1 ([] 1 2)
-              memof/perform-gc! *states
-              testing "\"should be empty after GC" $ is
-                nil? $ memof/access-record *states f1 ([] 1 2 3)
-              testing "\"used record should kept after GC" $ is
-                some? $ memof/access-record *states f1 ([] 1 2)
-        |test-memof-call $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            deftest test-memof-call $ testing "\"usage of memof-call"
-              is $ with-cpu-time
-                = (memof-call + 1 2 3) 6
-              is $ with-cpu-time
-                = (memof-call + 1 2 3) 6
-              tick-calling-loop!
-              reset-calling-caches!
         |test-memof1-as $ %{} :CodeEntry (:doc |)
           :code $ quote
             deftest test-memof1-as $ testing "\"memof1-as test" (reset! *call-count 0)
@@ -422,45 +185,11 @@
               is $ = (once/memof1-call-by "\"b" add3-key 1 2 3) 6
               is $ = 4 @*call-count
               once/reset-memof1-caches!
-        |test-reset $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            deftest test-reset $ let
-                f1 $ fn (x) x
-              reset! *states $ memof/new-states ({})
-              memof/write-record! *states f1 ([] 1 2) 3
-              testing "\"should have some entries" $ is
-                >
-                  count $ :entries (deref *states)
-                  , 0
-              memof/reset-entries! *states
-              testing "\"should have two entries" $ is
-                = 0 $ count
-                  :entries $ deref *states
-        |test-write $ %{} :CodeEntry (:doc |)
-          :code $ quote
-            deftest test-write $ let
-                f1 $ fn (x) x
-                f2 $ fn (x) x
-              reset! *states $ memof/new-states ({})
-              testing "\"gets nil before writing" $ is
-                nil? $ memof/access-record *states f1 ([] 1 2)
-              memof/write-record! *states f1 ([] 1 2) 3
-              testing "\"access written record" $ is
-                = 3 $ memof/access-record *states f1 ([] 1 2)
-              memof/write-record! *states f2 ([] 1 2) 3
-              testing "\"should have two entries" $ is
-                = 2 $ count
-                  :entries $ deref *states
-              memof/write-record! *states f2 ([] 1 2) 2
-              testing "\"overwrites record" $ is
-                = 2 $ memof/access-record *states f2 ([] 1 2)
-              memof/new-loop! *states
       :ns $ %{} :CodeEntry (:doc |)
         :code $ quote
           ns memof.test $ :require
-            [] calcit-test.core :refer $ [] deftest testing is *quit-on-failure?
-            [] memof.core :as memof
-            [] lilac.core :refer $ [] *in-dev? validate-lilac
-            [] memof.alias :refer $ [] memof-call reset-calling-caches! tick-calling-loop!
+            calcit-test.core :refer $ deftest testing is *quit-on-failure?
+            memof.core :as memof
+            lilac.core :refer $ *in-dev? validate-lilac
             memof.once :as once
             memof.anchor :refer $ identity-path anchor-state
